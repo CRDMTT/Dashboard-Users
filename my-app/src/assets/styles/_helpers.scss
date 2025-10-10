@@ -1,0 +1,23 @@
+@use 'sass:math';
+@use 'sass:meta' as meta;
+
+@function rem($px, $base: 16) {
+  $value: null;
+
+  @if meta.type-of($px) == 'number' and math.unit($px) == 'px' {
+    $value: math.div($px, $base * 1px);
+  } @else if meta.type-of($px) == 'number' and math.unit($px) == '' {
+    $value: math.div($px * 1px, $base * 1px);
+  } @else {
+    @error "rem() expects a number in px or unitless, got: #{$px}";
+  }
+
+  @return $value * 1rem;
+}
+
+@mixin fluid-font($minPx, $maxPx, $minVw: 320, $maxVw: 1200) {
+  $minRem: rem($minPx);
+  $maxRem: rem($maxPx);
+  $slope: math.div($maxRem - $minRem, $maxVw - $minVw);
+  font-size: clamp($minRem, calc(#{$minRem} + #{$slope} * (100vw - #{$minVw}px)), $maxRem);
+}
