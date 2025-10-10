@@ -1,0 +1,47 @@
+@use '../_helpers' as *;
+
+.btn {
+  padding: rem(10px) rem(20px);
+  border-radius: var(--radius-10);
+  border: 1px solid transparent;
+  color: var(--text-black);
+  cursor: pointer;
+  font-weight: var(--medium);
+
+
+  &--primary {
+    background: var(--primary);
+    color: var(--text-white);   
+
+    &:hover {
+      background: var(--primary-hover);
+    }
+  }
+
+  &--secondary {
+    background: var(--secondary);
+    color: var(--text-black);
+
+    &:hover {
+      background: var(--secondary-hover);
+    }
+  }
+
+  &--green {
+    background: var(--green);
+    color: var(--text-white);
+
+    &:hover {
+      background: var(--green-hover);
+    }
+  }
+
+  &--error {
+    background: var(--error);
+    color: var(--text-white);
+
+    &:hover {
+      background: var(--error-hover);
+    }
+  }
+}

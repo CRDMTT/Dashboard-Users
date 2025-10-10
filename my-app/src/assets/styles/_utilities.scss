@@ -60,3 +60,17 @@
   --radius-20: #{$radius-20};
   --radius-10: #{$radius-10};
 }
+
+/* Dark theme overrides */
+:root[data-theme='dark'], [data-theme='dark'] {
+  --white-bg: #121212;
+  --bg-page: #0b0b0b;
+  --text-black: #f3f3f3;
+  --text-white: #fff;
+  --primary: #3b82f6;
+
+
+  h1, h2, h3, p, a, span, li {
+    color: var(--text-white);
+  }
+}

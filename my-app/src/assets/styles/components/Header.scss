@@ -1,6 +1,23 @@
 .header {
-  &_content {
+
+  .container {
     background-color: var(--white-bg);
     border-radius: var(--radius-10);
+
+    &_content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    transition: background-color 0.15s ease;
   }
 }
