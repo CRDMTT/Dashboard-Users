@@ -1,0 +1,24 @@
+.input {
+  display: flex;
+  flex-direction: column;
+
+  &__label {
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-grey);
+  }
+
+  &__control {
+    padding: 0.5rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid var(--secondary-hover);
+    background: var(--white-bg);
+    color: var(--text-black);
+  }
+
+  &__error {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+  }
+}
