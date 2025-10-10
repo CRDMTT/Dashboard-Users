@@ -5,6 +5,7 @@
   --font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  color: var(--text-black);
 
   /*BACKGROUND COLORS*/
   --white-bg: #ffffff;
@@ -65,8 +66,8 @@
 :root[data-theme='dark'], [data-theme='dark'] {
   --white-bg: #121212;
   --bg-page: #0b0b0b;
-  --text-black: #f3f3f3;
-  --text-white: #fff;
+  --text-black: #1e1e1e;
+  --text-white: #f9f9f9;
   --primary: #3b82f6;
 
 
