@@ -13,7 +13,12 @@ export default function Dashboard() {
          <div className="container">
             <div className="row">
                <div className="col-md-4">
-                  <UIInput placeholder="Search..." />
+                  <UIInput 
+                     placeholder="Search user" 
+                     variant="search" 
+                     name="search" 
+                     type="search"
+                     />
                </div>
 
                <div className="col-md-4">
