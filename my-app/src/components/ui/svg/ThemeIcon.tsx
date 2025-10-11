@@ -12,8 +12,8 @@ export default function ThemeIcon({ theme }: Props) {
       aria-hidden
     >
       {/* Sun */}
-      <g className="icon-sun" stroke="#fff" strokeWidth={1.2} strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="4" fill="#fff" />
+      <g className="icon-sun" stroke="var(--svg-color)" strokeWidth={1.2} strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="4" fill="var(--svg-color)" />
         <g>
           <line x1="12" y1="1" x2="12" y2="3" />
           <line x1="12" y1="21" x2="12" y2="23" />
@@ -27,7 +27,7 @@ export default function ThemeIcon({ theme }: Props) {
       </g>
 
       {/* Moon */}
-      <g className="icon-moon" fill="#121212" transform="translate(0,0)">
+      <g className="icon-moon" fill="var(--svg-color)" transform="translate(0,0)">
         <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
       </g>
     </svg>

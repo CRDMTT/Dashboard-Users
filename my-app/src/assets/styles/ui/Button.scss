@@ -11,26 +11,16 @@
 
   &-primary {
     background-color: var(--primary);
-    color: var(--text-white);   
-
-    &:hover {
-      background-color: var(--primary-hover);
-      border: 0;
-    }
-  }
-
-  &-secondary {
-    background-color: var(--secondary);
     color: var(--text-black);
 
     &:hover {
-      background-color: var(--secondary-hover);
+      background-color: var(--primary-hover);
       color: black;
       border: 0;
     }
 
     &:active {
-      background-color: var(--secondary-active);
+      background-color: var(--primary-active) !important;
       color: white;
       border: 0;
     }
@@ -41,45 +31,28 @@
     }
 
     &--delete {
-      padding: rem(10px) rem(12px);
+      padding: rem(10px) rem(15px);
       padding-top: rem(8px);
     }
   }
 
-  &-tertiary {
+  &-secondary {
     padding: rem(8px) rem(18px);
-    background: var(--tertiary);
+    background: var(--secondary);
     color: var(--text-black);
     border: 2px solid transparent;
 
     &:hover {
-      background: var(--tertiary);
+      background: var(--secondary);
       border: 0;
-      border: 2px solid var(--tertiary-outline);
+      border: 2px solid var(--secondary-outline);
+      color: black;
     }
 
     &:active {
       background: rgba(0, 0, 0, 0.1);
       border: 0;
-      border: 2px solid var(--tertiary-outline);
-    }
-  }
-
-  &-green {
-    background-color: var(--green);
-    color: var(--text-white);
-
-    &:hover {
-      background-color: var(--green-hover);
-    }
-  }
-
-  &-error {
-    background-color: var(--error);
-    color: var(--text-white);
-
-    &:hover {
-      background-color: var(--error-hover);
+      border: 2px solid var(--secondary-outline) !important;
     }
   }
 

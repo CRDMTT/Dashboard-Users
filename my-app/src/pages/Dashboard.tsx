@@ -24,9 +24,9 @@ export default function Dashboard() {
                <div className="col-md-4">
                   <div className="inline-buttons d-flex align-items-center" style={{ gap: '8px' }}>
                      <p className="mb-0">Filter by role:</p>
-                     <UIButton variant="tertiary">Admin</UIButton>
-                     <UIButton variant="tertiary">Editor</UIButton>
-                     <UIButton variant="tertiary">Viewer</UIButton>
+                        <UIButton variant="secondary">Admin</UIButton>
+                        <UIButton variant="secondary">Editor</UIButton>
+                        <UIButton variant="secondary">Viewer</UIButton>
                   </div>
                </div>
 

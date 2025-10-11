@@ -6,7 +6,6 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?:
     | 'primary'
     | 'secondary'
-    | 'tertiary'
     | 'edit'
     | 'delete'
     | 'theme'
@@ -16,9 +15,9 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 export default function Button({ variant = 'primary', className = '', children, iconTheme, ...rest }: ButtonProps) {
   let cls = ''
   if (variant === 'edit') {
-    cls = `btn btn-secondary btn-secondary--edit ${className}`.trim()
+    cls = `btn btn-primary btn-primary--edit ${className}`.trim()
   } else if (variant === 'delete') {
-    cls = `btn btn-secondary btn-secondary--delete ${className}`.trim()
+    cls = `btn btn-primary btn-primary--delete ${className}`.trim()
   } else if (variant === 'theme') {
     cls = `btn btn-theme ${className}`.trim()
   } else {

@@ -76,10 +76,10 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                       <span className="user-name">{u.name}</span>
                     </div>
                   </td>
-                  <td>{u.position}</td>
-                  <td>{u.role}</td>
-                  <td>{u.email}</td>
-                  <td>{u.phone || '—'}</td>
+                  <td><span className="user-position">{u.position}</span></td>
+                  <td><span className="user-role">{u.role}</span></td>
+                  <td><span className="user-email">{u.email}</span></td>
+                  <td><span className="user-phone">{u.phone || '—'}</span></td>
                   <td className="user-table__actions justify-content-center">
                     <div className="wrapper">
                       <UIButton
@@ -105,14 +105,14 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                     <div className="container">
                       <div className="row user-detail__content">
                           <div className="col-3 offset-2 user-detail__row user-detail__row--info">
-                          <p><strong>Posizione:</strong> {u.position}</p>
-                          <p><strong>Role:</strong> {u.role}</p>
-                          <p><strong>Email:</strong> {u.email}</p>
-                          <p><strong>Telefono:</strong> {u.phone || 'Non disponibile'}</p>
+                          <p><strong>Posizione:</strong> <span className="user-position">{u.position}</span></p>
+                          <p><strong>Role:</strong> <span className="user-role">{u.role}</span></p>
+                          <p><strong>Email:</strong> <span className="user-email">{u.email}</span></p>
+                          <p><strong>Telefono:</strong> <span className="user-phone">{u.phone || 'Non disponibile'}</span></p>
                         </div>
 
                           <div className="col-3 user-detail__row user-detail__row--notes">
-                          <p>{u.notes || '—'}</p>
+                          <p><span className="user-notes">{u.notes || '—'}</span></p>
                         </div>
                       </div>
                     </div>

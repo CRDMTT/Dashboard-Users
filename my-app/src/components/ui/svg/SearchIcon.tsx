@@ -15,8 +15,8 @@ export default function SearchIcon({ className = '', ...rest }: Props) {
       xmlns="http://www.w3.org/2000/svg"
       {...rest}
     >
-      <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx="11" cy="11" r="6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  <path d="M21 21l-4.35-4.35" stroke="var(--svg-color)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+  <circle cx="11" cy="11" r="6" stroke="var(--svg-color)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
