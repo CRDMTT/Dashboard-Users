@@ -1,14 +1,9 @@
-import './assets/styles/App.scss'
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from './components/layout/Layout';
 
-function App() {
-
+export default function App() {
   return (
     <>
       <Layout />
     </>
   )
 }
-
-export default App

@@ -1,0 +1,109 @@
+@use '../_helpers' as *;
+@use '../_utilities' as *;
+
+.btn {
+  padding: rem(10px) rem(20px);
+  border-radius: var(--radius-10);
+  color: var(--text-black);
+  border: 0;
+  cursor: pointer;
+  font-size: var(--paragraph);
+  font-weight: var(--medium);
+
+  &-primary {
+    background-color: var(--primary);
+    color: var(--text-black);
+
+    &:hover {
+      background-color: var(--primary-hover);
+      color: black;
+      border: 0;
+    }
+
+    &:active {
+      background-color: var(--primary-active) !important;
+      color: white;
+      border: 0;
+    }
+
+    &--edit {
+      padding: rem(10px) rem(15px);
+      padding-top: rem(8px);
+    }
+
+    &--delete {
+      padding: rem(10px) rem(15px);
+      padding-top: rem(8px);
+    }
+  }
+
+  &-secondary {
+    padding: rem(8px) rem(18px);
+    background: var(--secondary);
+    color: var(--text-black);
+    border: 2px solid transparent;
+
+    &:hover {
+      background: var(--secondary);
+      border: 0;
+      border: 2px solid var(--secondary-outline);
+      color: black;
+    }
+
+    &:active {
+      background: rgba(0, 0, 0, 0.1);
+      border: 0;
+      border: 2px solid var(--secondary-outline) !important;
+    }
+  }
+
+  &-theme {
+    padding: 0;
+
+    .theme-icon {
+      width: rem(45px);
+      height: rem(45px);
+      background-color: var(--bg-page);
+      padding: rem(10px) rem(10px);
+      border: 0;
+      border-radius: var(--radius-50);
+      transition: all 0.15s ease;
+
+      &:hover {
+        &.is-light {
+          background-color: #d8d9db;
+        }
+
+        &.is-dark {
+          background-color: #5a5a5a;
+        } 
+      }
+
+      &.is-light {
+        .icon-moon {
+          opacity: 1;
+        }
+
+        .icon-sun {
+          opacity: 0;
+        }
+      }
+
+      &.is-dark {
+        .icon-moon {
+          opacity: 0;
+        }
+
+        .icon-sun {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: 3px solid rgba(100, 100, 255, 0.25);
+    outline-offset: 2px;
+  }
+}

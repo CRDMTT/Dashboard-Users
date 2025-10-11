@@ -39,7 +39,7 @@ body {
   }
 }
 
-p {
+p, span {
   font-size: var(--paragraph);
   font-weight: var(--thin);
   overflow-wrap: break-word;
@@ -55,5 +55,8 @@ a:hover {
   color: var(--gold-hover);
 }
 
-
-
+@media (max-width: 991px) {
+  .container {
+    max-width: 960px;
+  }
+}

@@ -1,6 +1,15 @@
+@use '../_helpers' as *;
+
 .header {
-  &_content {
+  &-wrapper {
+    padding: rem(20px);
     background-color: var(--white-bg);
     border-radius: var(--radius-10);
+
+    &_content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 }

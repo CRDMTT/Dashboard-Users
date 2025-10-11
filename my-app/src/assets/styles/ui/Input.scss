@@ -1,0 +1,56 @@
+@use '../_helpers' as *;
+
+.input-box {
+  &__label {
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
+    color: var(--text-grey);
+  }
+
+  .input__wrapper {
+    position: relative;
+
+    .input {
+      padding: rem(10px) rem(10px);
+      border-radius: var(--radius-10);
+      border: 0;
+      width: 100%;
+      font-size: var(--paragraph);
+
+      &__control {
+        background: var(--white-bg);
+        color: var(--text-black);
+      }
+
+      &__error {
+        background: var(--white-bg);
+        color: var(--error);
+      } 
+    }
+
+    .input__icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-grey);
+      pointer-events: none;
+
+      .icon-search {
+        width: rem(16px);
+        height: rem(16px);
+      }
+    }
+
+    &.input--search {
+      .input {
+        &__control {
+          padding-left: rem(40px);
+        }
+      }
+    }
+  }
+}
