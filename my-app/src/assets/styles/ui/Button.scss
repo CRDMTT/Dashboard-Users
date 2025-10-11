@@ -5,7 +5,7 @@
   padding: rem(10px) rem(20px);
   border-radius: var(--radius-10);
   color: var(--text-black);
-  border: 0;
+  border: 2px solid transparent;
   cursor: pointer;
   font-size: var(--paragraph);
   font-weight: var(--medium);
@@ -103,7 +103,11 @@
 
   &:focus,
   &:focus-visible {
-    outline: 3px solid rgba(100, 100, 255, 0.25);
+    outline: 2px solid #6464ff40;
     outline-offset: 2px;
+    border: 2px solid transparent;
+    color: unset;
+    background-color: unset;
+    box-shadow: none;
   }
 }

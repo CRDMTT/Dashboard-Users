@@ -28,11 +28,11 @@ export default function Dashboard() {
           </div>
 
           <div className="col-12 col-md-7">
-            <div className="inline-buttons d-flex align-items-center" style={{ gap: '8px' }}>
+            <div className="inline-buttons d-flex align-items-center" style={{ gap: '10px' }}>
               <div className='pr-2' style={{ width: 'fit-content' }}>
                 <p className="mb-0">Filter by role:</p>
               </div>
-              <div className='d-flex' role="toolbar" aria-label="Filter by role" style={{ gap: '5px', overflowX: 'auto' }}>
+              <div className='d-flex' role="toolbar" aria-label="Filter by role" style={{ gap: '5px' }}>
                 <UIButton variant="secondary" aria-pressed={activeRole === 'Admin'} onClick={() => toggleRole('Admin')}>Admin</UIButton>
                 <UIButton variant="secondary" aria-pressed={activeRole === 'Editor'} onClick={() => toggleRole('Editor')}>Editor</UIButton>
                 <UIButton variant="secondary" aria-pressed={activeRole === 'Viewer'} onClick={() => toggleRole('Viewer')}>Viewer</UIButton>
