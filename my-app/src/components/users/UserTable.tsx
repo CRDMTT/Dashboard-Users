@@ -6,7 +6,7 @@ export type User = {
   id: string
   name: string
   position: string
-  department: string
+  role: string
   email: string
   phone?: string
   avatar?: string
@@ -29,11 +29,11 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
         <thead>
           <tr>
             <th></th>
-            <th>Nome</th>
-            <th>Posizione lavorativa</th>
-            <th>Dipartimento</th>
+            <th>Name</th>
+            <th>Job Title</th>
+            <th>Role</th>
             <th>Email</th>
-            <th>Telefono</th>
+            <th>Telephone</th>
             <th className='text-center'>Edit</th>
           </tr>
         </thead>
@@ -77,7 +77,7 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                     </div>
                   </td>
                   <td>{u.position}</td>
-                  <td>{u.department}</td>
+                  <td>{u.role}</td>
                   <td>{u.email}</td>
                   <td>{u.phone || '—'}</td>
                   <td className="user-table__actions justify-content-center">
@@ -106,7 +106,7 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                       <div className="row user-detail__content">
                           <div className="col-3 offset-2 user-detail__row user-detail__row--info">
                           <p><strong>Posizione:</strong> {u.position}</p>
-                          <p><strong>Dipartimento:</strong> {u.department}</p>
+                          <p><strong>Role:</strong> {u.role}</p>
                           <p><strong>Email:</strong> {u.email}</p>
                           <p><strong>Telefono:</strong> {u.phone || 'Non disponibile'}</p>
                         </div>

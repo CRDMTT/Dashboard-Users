@@ -4,8 +4,8 @@
 .btn {
   padding: rem(10px) rem(20px);
   border-radius: var(--radius-10);
-  border: 1px solid transparent;
   color: var(--text-black);
+  border: 0;
   cursor: pointer;
   font-weight: var(--medium);
 
@@ -15,6 +15,7 @@
 
     &:hover {
       background-color: var(--primary-hover);
+      border: 0;
     }
   }
 
@@ -24,6 +25,14 @@
 
     &:hover {
       background-color: var(--secondary-hover);
+      color: black;
+      border: 0;
+    }
+
+    &:active {
+      background-color: var(--secondary-active);
+      color: white;
+      border: 0;
     }
 
     &--edit {
@@ -34,6 +43,25 @@
     &--delete {
       padding: rem(10px) rem(12px);
       padding-top: rem(8px);
+    }
+  }
+
+  &-tertiary {
+    padding: rem(8px) rem(18px);
+    background: var(--tertiary);
+    color: var(--text-black);
+    border: 2px solid transparent;
+
+    &:hover {
+      background: var(--tertiary);
+      border: 0;
+      border: 2px solid var(--tertiary-outline);
+    }
+
+    &:active {
+      background: rgba(0, 0, 0, 0.1);
+      border: 0;
+      border: 2px solid var(--tertiary-outline);
     }
   }
 
@@ -55,7 +83,7 @@
     }
   }
 
-  &--theme {
+  &-theme {
     padding: 0;
 
     .theme-icon {
@@ -97,11 +125,5 @@
         }
       }
     }
-  }
-
-  &:active {
-    border: 0;
-    background: none;
-    color: none;
   }
 }
