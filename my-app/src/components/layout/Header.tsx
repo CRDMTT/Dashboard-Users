@@ -31,6 +31,8 @@ export default function Header() {
                         variant="theme"
                         className="theme-toggle"
                         aria-label="Toggle color theme"
+                        role="switch"
+                        aria-checked={theme === 'dark'}
                         onClick={toggle}
                         title={theme === 'light' ? 'Switch to dark' : 'Switch to light'}
                         iconTheme={theme}

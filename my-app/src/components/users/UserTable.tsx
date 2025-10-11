@@ -25,16 +25,17 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
 
   return (
     <div className="user-table__wrap">
-      <table className="user-table">
+      <table className="user-table" role="table" aria-label="Users table">
+        <caption className="visually-hidden">List of users</caption>
         <thead>
           <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Job Title</th>
-            <th>Role</th>
-            <th>Email</th>
-            <th>Telephone</th>
-            <th className='text-center'>Edit</th>
+            <th scope="col"></th>
+            <th scope="col">Name</th>
+            <th scope="col">Job Title</th>
+            <th scope="col">Role</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telephone</th>
+            <th scope="col" className='text-center'>Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -44,16 +45,7 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
               <React.Fragment key={u.id}>
                 <tr
                   className={`user-row ${isOpen ? 'is-open' : ''}`}
-                  tabIndex={0}
                   onClick={() => toggle(u.id)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault()
-                      toggle(u.id)
-                    }
-                  }}
-                  aria-expanded={isOpen}
-                  aria-controls={`detail-${u.id}`}
                 >
                   <td>
                     <UIAccordionToggle
@@ -64,6 +56,7 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                       }}
                       aria-expanded={isOpen}
                       aria-controls={`detail-${u.id}`}
+                      aria-label={isOpen ? `Collapse ${u.name}` : `Expand ${u.name}`}
                     />
                   </td>
                   <td className="user-cell user-cell--name">
@@ -84,6 +77,8 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                     <div className="wrapper">
                       <UIButton
                         variant="edit"
+                        aria-label={`Edit ${u.name}`}
+                        title={`Edit ${u.name}`}
                         onClick={(e) => {
                           e.stopPropagation()
                           onEdit(u.id)
@@ -91,6 +86,8 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                       />
                       <UIButton
                         variant="delete"
+                        aria-label={`Delete ${u.name}`}
+                        title={`Delete ${u.name}`}
                         onClick={(e) => {
                           e.stopPropagation()
                           onDelete(u.id)

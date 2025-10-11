@@ -5,7 +5,7 @@
   &__wrap {
     overflow-x: auto;
     background-color: var(--white-bg);
-    border-radius: var(--radius-20);
+    border-radius: var(--radius-10);
 
     .user-table {
       width: 100%;
@@ -13,9 +13,10 @@
       border-collapse: collapse;
 
       th {
-        padding: rem(25px) rem(10px);
+        padding: rem(15px) rem(10px);
+        font-size: var(--paragraph);
       }
-
+      
       td {
         padding: rem(15px) rem(10px);
       }
@@ -28,7 +29,6 @@
         overflow: hidden;
       }
 
-      /* span wrappers inside cells should ellipsize when space is limited */
       .user-name,
       .user-position,
       .user-role,
@@ -43,7 +43,6 @@
         vertical-align: middle;
       }
 
-      /* adjust some column max-widths for better distribution */
       .user-name { max-width: 180px; }
       .user-position { max-width: 160px; }
       .user-email { max-width: 220px; }
@@ -96,8 +95,8 @@
 
     .user-avatar {
       margin-right: rem(20px);
-      width: rem(55px);
-      height: rem(55px);
+      width: rem(45px);
+      height: rem(45px);
       border-radius: var(--radius-50);
       object-fit: cover;
       border: 1px solid rgba(0, 0, 0, 0.06);

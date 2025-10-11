@@ -60,6 +60,18 @@
   --radius-10: #{$radius-10};
 }
 
+/* Accessibility helper */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
+}
+
 /* Dark theme overrides */
 :root[data-theme='dark'] {
   --white-bg: #1a1a1a;

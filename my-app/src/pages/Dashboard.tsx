@@ -1,4 +1,5 @@
 import { UIInput, UIButton } from '../components/ui'
+import { useState } from 'react'
 import UserTable from '../components/users/UserTable'
 
 const mockUsers = [
@@ -8,31 +9,34 @@ const mockUsers = [
 ]
 
 export default function Dashboard() {
+   const [activeRole, setActiveRole] = useState<string | null>(null)
+   const toggleRole = (role: string) => setActiveRole((cur) => (cur === role ? null : role))
    return (
       <div className="section">
          <div className="container">
             <div className="row">
-               <div className="col-md-4">
+               <div className="col-12 col-md-4">
                   <div className="searchbox mb-3 mb-lg-0">
                      <UIInput 
                         placeholder="Search user" 
                         variant="search" 
                         name="search" 
                         type="search"
+                        aria-label="Search users"
                      />
                   </div>
                </div>
 
-               <div className="col-12 col-md-5">
+               <div className="col-12 col-md-7">
                   <div className="inline-buttons d-flex align-items-center" style={{ gap: '8px' }}>
-                    <div style={{minWidth: '25%'}}>
+                    <div className='pr-2' style={{width: 'fit-content'}}>
                       <p className="mb-0">Filter by role:</p>
                     </div>
-                    <div className='d-flex' style={{gap: '5px', overflowX: 'auto'}}>
-                      <UIButton variant="secondary">Admin</UIButton>
-                      <UIButton variant="secondary">Editor</UIButton>
-                      <UIButton variant="secondary">Viewer</UIButton>
-                    </div>
+                              <div className='d-flex' role="toolbar" aria-label="Filter by role" style={{gap: '5px', overflowX: 'auto'}}>
+                                 <UIButton variant="secondary" aria-pressed={activeRole === 'Admin'} onClick={() => toggleRole('Admin')}>Admin</UIButton>
+                                 <UIButton variant="secondary" aria-pressed={activeRole === 'Editor'} onClick={() => toggleRole('Editor')}>Editor</UIButton>
+                                 <UIButton variant="secondary" aria-pressed={activeRole === 'Viewer'} onClick={() => toggleRole('Viewer')}>Viewer</UIButton>
+                              </div>
                   </div>
                </div>
 
