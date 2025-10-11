@@ -60,7 +60,6 @@
   --radius-10: #{$radius-10};
 }
 
-/* Accessibility helper */
 .visually-hidden {
   position: absolute !important;
   height: 1px; width: 1px;
@@ -87,7 +86,6 @@
   --secondary-outline: #a3a7b7;
 
   --svg-color: #f9f9f9;
-
 
   h1, h2, h3, p, a, span, li {
     color: var(--text-white);
@@ -134,4 +132,24 @@
       }
     }
   }
+
+  .input-box {
+    .input__control {
+      color: var(--text-white);
+      background: var(--white-bg);
+
+      &::placeholder {
+        color: var(--text-white);
+        opacity: 0.85;
+      }
+
+      &:focus-visible {
+        color: var(--text-white);
+      }
+    }
+
+    .input__icon {
+      color: var(--text-white);
+    }
+  } 
 }

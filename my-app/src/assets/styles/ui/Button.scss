@@ -17,7 +17,7 @@
     &:hover {
       background-color: var(--primary-hover);
       color: black;
-      border: 0;
+      border: 2px solid transparent;
     }
 
     &:active {
