@@ -1,6 +1,7 @@
 @use '../_helpers' as *;
 
-.user-table {  
+.user-table { 
+
   &__wrap {
     overflow-x: auto;
     background-color: var(--white-bg);
@@ -8,6 +9,7 @@
 
     .user-table {
       width: 100%;
+      table-layout: auto; /* prevent auto layout so columns respect available space */
       border-collapse: collapse;
 
       th {
@@ -22,7 +24,31 @@
       td {
         text-align: left;
         border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        white-space: nowrap;
+        overflow: hidden;
       }
+
+      /* span wrappers inside cells should ellipsize when space is limited */
+      .user-name,
+      .user-position,
+      .user-role,
+      .user-email,
+      .user-phone,
+      .user-notes {
+        display: inline-block;
+        max-width: 160px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
+      }
+
+      /* adjust some column max-widths for better distribution */
+      .user-name { max-width: 180px; }
+      .user-position { max-width: 160px; }
+      .user-email { max-width: 220px; }
+      .user-role { max-width: 120px; }
+      .user-phone { max-width: 120px; }
 
       tr {
         cursor: pointer;
@@ -32,11 +58,20 @@
         }
       }
 
-      &__actions {
+      .user-row {
+        .user-cell {
+          .user-main {
+            display: flex;
+            align-items: center;
+          }
+        }
+
+        &__actions {
         .wrapper {
-          display: flex;
-          justify-content: center;
-          gap: 0.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+          }
         }
       }
     }
@@ -108,6 +143,10 @@
           }
         }
       }
+    }
+
+    @media (max-width: 768px) {
+      border-radius: 10px;
     }
   }
 }

@@ -13,20 +13,26 @@ export default function Dashboard() {
          <div className="container">
             <div className="row">
                <div className="col-md-4">
-                  <UIInput 
-                     placeholder="Search user" 
-                     variant="search" 
-                     name="search" 
-                     type="search"
+                  <div className="searchbox mb-3 mb-lg-0">
+                     <UIInput 
+                        placeholder="Search user" 
+                        variant="search" 
+                        name="search" 
+                        type="search"
                      />
+                  </div>
                </div>
 
-               <div className="col-md-4">
+               <div className="col-12 col-md-5">
                   <div className="inline-buttons d-flex align-items-center" style={{ gap: '8px' }}>
-                     <p className="mb-0">Filter by role:</p>
-                        <UIButton variant="secondary">Admin</UIButton>
-                        <UIButton variant="secondary">Editor</UIButton>
-                        <UIButton variant="secondary">Viewer</UIButton>
+                    <div style={{minWidth: '25%'}}>
+                      <p className="mb-0">Filter by role:</p>
+                    </div>
+                    <div className='d-flex' style={{gap: '5px', overflowX: 'auto'}}>
+                      <UIButton variant="secondary">Admin</UIButton>
+                      <UIButton variant="secondary">Editor</UIButton>
+                      <UIButton variant="secondary">Viewer</UIButton>
+                    </div>
                   </div>
                </div>
 

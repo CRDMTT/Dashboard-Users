@@ -80,7 +80,7 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                   <td><span className="user-role">{u.role}</span></td>
                   <td><span className="user-email">{u.email}</span></td>
                   <td><span className="user-phone">{u.phone || '—'}</span></td>
-                  <td className="user-table__actions justify-content-center">
+                  <td className="user-row__actions justify-content-center">
                     <div className="wrapper">
                       <UIButton
                         variant="edit"
