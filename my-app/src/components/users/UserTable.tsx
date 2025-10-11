@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import '../../assets/styles/components/UserTable.scss'
-import { UIAccordionToggle, UIButtonEdit, UIButtonDelete } from '../ui'
+import { UIAccordionToggle, UIButton } from '../ui'
 
 export type User = {
   id: string
@@ -82,20 +82,20 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                   <td>{u.phone || '—'}</td>
                   <td className="user-table__actions justify-content-center">
                     <div className="wrapper">
-                      <UIButtonEdit
+                      <UIButton
+                        variant="edit"
                         onClick={(e) => {
                           e.stopPropagation()
                           onEdit(u.id)
                         }}
-                      ></UIButtonEdit>
-                      <UIButtonDelete
-                        className="btn-delete"
+                      />
+                      <UIButton
+                        variant="delete"
                         onClick={(e) => {
                           e.stopPropagation()
                           onDelete(u.id)
                         }}
-                      >
-                      </UIButtonDelete>
+                      />
                     </div>
                   </td>
                 </tr>
