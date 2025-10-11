@@ -17,3 +17,17 @@ h3 {
   font-weight: var(--bold);
   line-height: 1.2; 
 }
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--title-1-mobile);
+  }
+
+  h2 {
+    font-size: var(--title-2-mobile);
+  }
+
+  h3 {
+    font-size: var(--title-3-mobile);
+  }
+}

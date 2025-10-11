@@ -1,7 +1,8 @@
 @use '../_helpers' as *;
 
 .header {
-  .container {
+  &-wrapper {
+    padding: rem(20px);
     background-color: var(--white-bg);
     border-radius: var(--radius-10);
 

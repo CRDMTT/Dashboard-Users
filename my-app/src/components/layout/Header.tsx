@@ -21,20 +21,21 @@ export default function Header() {
       <header className="header">
          <div className="container">
             <div className="row">
-               <div className="col-11">
-                  <div className="header_content p-4">
-                     <UIHeading className='header_title mb-0' level={1}>Users Dashboard</UIHeading>
+               <div className="col-12">
+                  <div className="header-wrapper d-flex align-items-center justify-content-between">
+                     <div className="header_content">
+                        <UIHeading className='header_title mb-0' level={1}>Users Dashboard</UIHeading>
+                     </div>
+
+                     <UIButton
+                        variant="theme"
+                        className="theme-toggle"
+                        aria-label="Toggle color theme"
+                        onClick={toggle}
+                        title={theme === 'light' ? 'Switch to dark' : 'Switch to light'}
+                        iconTheme={theme}
+                     />
                   </div>
-               </div>
-               <div className="col-1 d-flex align-items-center justify-content-center">
-                  <UIButton
-                     variant="theme"
-                     className="theme-toggle"
-                     aria-label="Toggle color theme"
-                     onClick={toggle}
-                     title={theme === 'light' ? 'Switch to dark' : 'Switch to light'}
-                     iconTheme={theme}
-                  />
                </div>
             </div>
          </div>
