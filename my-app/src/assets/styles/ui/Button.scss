@@ -1,4 +1,5 @@
 @use '../_helpers' as *;
+@use '../_utilities' as *;
 
 .btn {
   padding: rem(10px) rem(20px);
@@ -8,39 +9,49 @@
   cursor: pointer;
   font-weight: var(--medium);
 
-  &--primary {
-    background: var(--primary);
+  &-primary {
+    background-color: var(--primary);
     color: var(--text-white);   
 
     &:hover {
-      background: var(--primary-hover);
+      background-color: var(--primary-hover);
     }
   }
 
-  &--secondary {
-    background: var(--secondary);
+  &-secondary {
+    background-color: var(--secondary);
     color: var(--text-black);
 
     &:hover {
-      background: var(--secondary-hover);
+      background-color: var(--secondary-hover);
+    }
+
+    &--edit {
+      padding: rem(10px) rem(15px);
+      padding-top: rem(8px);
+    }
+
+    &--delete {
+      padding: rem(10px) rem(12px);
+      padding-top: rem(8px);
     }
   }
 
-  &--green {
-    background: var(--green);
+  &-green {
+    background-color: var(--green);
     color: var(--text-white);
 
     &:hover {
-      background: var(--green-hover);
+      background-color: var(--green-hover);
     }
   }
 
-  &--error {
-    background: var(--error);
+  &-error {
+    background-color: var(--error);
     color: var(--text-white);
 
     &:hover {
-      background: var(--error-hover);
+      background-color: var(--error-hover);
     }
   }
 }

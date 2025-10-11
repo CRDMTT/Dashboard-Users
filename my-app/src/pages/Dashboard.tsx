@@ -13,12 +13,11 @@ export default function Dashboard() {
          <div className="container">
             <div className="row">
                <div className="col-md-4">
-                  <UIInput label="Searchbar" placeholder="Search..." />
+                  <UIInput placeholder="Search..." />
                </div>
 
                <div className="col-md-4">
                   <UISelect
-                     label="Filters"
                      options={[
                         { value: 'option1', label: 'Option 1' },
                         { value: 'option2', label: 'Option 2' },
@@ -27,7 +26,7 @@ export default function Dashboard() {
                   />
                </div>
 
-               <div className="col-md-12 mt-5">
+               <div className="col-md-12 mt-4">
                   <div className="grid-container">
                      <UserTable
                         users={mockUsers}
