@@ -54,4 +54,54 @@
       background-color: var(--error-hover);
     }
   }
+
+  &--theme {
+    padding: 0;
+
+    .theme-icon {
+      width: rem(45px);
+      height: rem(45px);
+      background-color: var(--bg-page);
+      padding: rem(10px) rem(10px);
+      border: 0;
+      border-radius: var(--radius-50);
+      transition: all 0.15s ease;
+
+      &:hover {
+        &.is-light {
+          background-color: #d8d9db;
+        }
+
+        &.is-dark {
+          background-color: #5a5a5a;
+        } 
+      }
+
+      &.is-light {
+        .icon-moon {
+          opacity: 1;
+        }
+
+        .icon-sun {
+          opacity: 0;
+        }
+      }
+
+      &.is-dark {
+        .icon-moon {
+          opacity: 0;
+        }
+
+        .icon-sun {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &:active {
+    border: 0;
+    background: none;
+    color: none;
+  }
 }

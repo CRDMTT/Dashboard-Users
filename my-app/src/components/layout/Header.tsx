@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import '../../assets/styles/components/Header.scss'
-import { UIHeading, UIButton, ThemeIcon } from '../ui'
+import { UIHeading, UIButton } from '../ui'
 
 export default function Header() {
    const [theme, setTheme] = useState<'light' | 'dark'>(() => {
@@ -28,14 +28,13 @@ export default function Header() {
                </div>
                <div className="col-1 d-flex align-items-center justify-content-center">
                   <UIButton
-                     variant="primary"
+                     variant="theme"
                      className="theme-toggle"
                      aria-label="Toggle color theme"
                      onClick={toggle}
                      title={theme === 'light' ? 'Switch to dark' : 'Switch to light'}
-                  >
-                     <ThemeIcon theme={theme} />
-                  </UIButton>
+                     iconTheme={theme}
+                  />
                </div>
             </div>
          </div>

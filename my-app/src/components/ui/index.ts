@@ -1,6 +1,5 @@
 export { default as UIButton } from './button/UIButton'
 export { default as UIHeading } from './heading/UIHeading'
-export { default as ThemeIcon } from './button/ThemeIcon'
 export { default as UIAccordionToggle } from './button/UIAccordionToggle'
 export { default as UIInput } from './input/UIInput'
 export { default as UISelect } from './select/UISelect'

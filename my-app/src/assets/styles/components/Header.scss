@@ -11,40 +11,4 @@
       justify-content: space-between;
     }
   }
-
-  .theme-toggle {
-    background-color: var(--bg-page);
-    padding: rem(10px) rem(10px);
-    border: 0;
-    border-radius: var(--radius-50);
-    transition: all 0.15s ease;
-
-    &:hover {
-      background-color: var(--secondary-hover);
-    }
-
-    .theme-icon { 
-      transition: opacity 0.15s ease;
-    
-      &.is-light {
-        .icon-moon {
-          opacity: 1;
-        }
-
-        .icon-sun {
-          opacity: 0;
-        }
-      }
-
-      &.is-dark {
-        .icon-moon {
-          opacity: 0;
-        }
-
-        .icon-sun {
-          opacity: 1;
-        }
-      }
-    }
-  }
 }

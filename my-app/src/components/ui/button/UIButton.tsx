@@ -1,7 +1,6 @@
 import React from 'react'
 import '../../../assets/styles/ui/Button.scss'
-import EditIcon from '../svg/EditIcon'
-import TrashIcon from '../svg/TrashIcon'
+import { EditIcon, TrashIcon, ThemeIcon } from '../svg'
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?:
@@ -13,14 +12,18 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
     | 'default'
     | 'edit'
     | 'delete'
+    | 'theme'
+  iconTheme?: 'light' | 'dark'
 }
 
-export default function Button({ variant = 'default', className = '', children, ...rest }: ButtonProps) {
+export default function Button({ variant = 'default', className = '', children, iconTheme, ...rest }: ButtonProps) {
   let cls = ''
   if (variant === 'edit') {
     cls = `btn btn-secondary btn-secondary--edit ${className}`.trim()
   } else if (variant === 'delete') {
     cls = `btn btn-secondary btn-secondary--delete ${className}`.trim()
+  } else if (variant === 'theme') {
+    cls = `btn btn--theme ${className}`.trim()
   } else {
     cls = `btn btn--${variant} ${className}`.trim()
   }
@@ -28,6 +31,7 @@ export default function Button({ variant = 'default', className = '', children, 
   const renderIcon = () => {
     if (variant === 'edit') return <EditIcon />
     if (variant === 'delete') return <TrashIcon />
+    if (variant === 'theme') return <ThemeIcon theme={iconTheme || 'light'} />
     return null
   }
 
