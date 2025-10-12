@@ -125,6 +125,10 @@
     }
   }
 
+  &:disabled {
+    opacity: 0.1;
+  }
+
   &:focus-visible {
     outline: 2px solid #6464ff40;
     outline-offset: 2px;

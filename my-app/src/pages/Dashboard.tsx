@@ -41,6 +41,25 @@ export default function Dashboard({ recordId }: Props) {
   const filteredUsers = useMemo(() => filterUsers(users, { query: debouncedQuery, activeRole }), [users, debouncedQuery, activeRole])
   const spinnerShouldBeVisible = apiLoading || (apiData == null && users.length === 0)
 
+  // Pagination
+  const PAGE_SIZE = 10
+  const [page, setPage] = useState(1)
+  const totalPages = Math.max(1, Math.ceil(filteredUsers.length / PAGE_SIZE))
+
+  // When filters or the filtered set change reset to first page
+  useEffect(() => {
+    setPage(1)
+  }, [debouncedQuery, activeRole, users.length])
+
+  // Clamp page when totalPages shrink
+  useEffect(() => {
+    if (page > totalPages) setPage(totalPages)
+  }, [page, totalPages])
+
+  const startIndex = (page - 1) * PAGE_SIZE
+  const endIndex = Math.min(startIndex + PAGE_SIZE, filteredUsers.length)
+  const pagedUsers = filteredUsers.slice(startIndex, endIndex)
+
   useEffect(() => {
     const MIN_SPINNER_MS = 480
     let timeoutId: number | undefined
@@ -184,11 +203,22 @@ export default function Dashboard({ recordId }: Props) {
                       </div>
                     </div>
                     ) : (
-                    <UserTable
-                      users={filteredUsers}
-                      onEdit={handleEdit}
-                      onDelete={handleDelete}
-                    />
+                    <>
+                      <UserTable
+                        users={pagedUsers}
+                        onEdit={handleEdit}
+                        onDelete={handleDelete}
+                      />
+
+                      <div className="d-flex justify-content-between align-items-center mt-3">
+                        <span>Showing {startIndex + 1}–{endIndex} of {filteredUsers.length}</span>
+                        <div>
+                          <UIButton variant="secondary" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>Prev</UIButton>
+                          <span className="mx-2">Page {page} / {totalPages}</span>
+                          <UIButton variant="secondary" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}>Next</UIButton>
+                        </div>
+                      </div>
+                    </>
                   )}
                 </>
               )}
