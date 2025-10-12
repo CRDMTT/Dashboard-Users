@@ -23,7 +23,14 @@
     &:active {
       background-color: var(--primary-active) !important;
       color: white;
-      border: 0;
+      border: 2px solid transparent !important;
+    }
+
+    &:disabled {
+      opacity: 0.1;
+      background-color: var(--primary);
+      color: var(--text-black);
+      border: 2px solid transparent;
     }
 
     &--edit {
@@ -56,6 +63,10 @@
       border: 2px solid var(--secondary-outline) !important;
       background-color: var(--secondary) !important;
       color: var(--text-black) !important;
+    }
+
+    &:disabled {
+      opacity: 0.1;
     }
 
     &[aria-pressed="true"], &.active {
@@ -123,10 +134,6 @@
         }
       }
     }
-  }
-
-  &:disabled {
-    opacity: 0.1;
   }
 
   &:focus-visible {
