@@ -22,13 +22,28 @@ export async function apiFetch<T = any>(path: string, options: RequestInit = {})
   const res = await fetch(url, { ...options, headers })
   if (!res.ok) {
     const text = await res.text()
-    let payload: any = { message: text }
+    // try to parse JSON, otherwise keep text
+    let payload: any = null
     try {
       payload = JSON.parse(text)
     } catch (e) {
-      // keep text
+      payload = null
     }
-    const err: ApiError = { message: payload.message || res.statusText, status: res.status }
+
+    // capture response headers for debugging
+    const hdrs: Record<string, string> = {}
+    res.headers.forEach((v, k) => {
+      hdrs[k] = v
+    })
+
+    const err: ApiError = {
+      message: (payload && payload.message) || text || res.statusText,
+      status: res.status,
+    }
+    // attach debug info
+    ;(err as any).body = payload ?? text
+    ;(err as any).headers = hdrs
+    ;(err as any).url = url
     throw err
   }
   const data = await res.json()
@@ -95,6 +110,16 @@ export function buildRecordUrl(id: string) {
   return `${base.replace(/\/$/, '')}${recordsPath.startsWith('/') ? recordsPath : '/' + recordsPath}/${id}`
 }
 
+export async function updateRecord(id: string, payload: any) {
+  const path = `${RECORD_PATH.replace(/\/$/, '')}/${id}`
+  return apiFetch(path, { method: 'PUT', body: JSON.stringify(payload) })
+}
+
+export async function patchRecord(id: string, patch: any) {
+  const path = `${RECORD_PATH.replace(/\/$/, '')}/${id}`
+  return apiFetch(path, { method: 'PATCH', body: JSON.stringify(patch) })
+}
+
 export function useFetchRecord(id?: string | null) {
   const [data, setData] = useState<any | null>(null)
   const [loading, setLoading] = useState(false)
@@ -102,7 +127,6 @@ export function useFetchRecord(id?: string | null) {
   const [lastUrl, setLastUrl] = useState<string | null>(null)
 
   useEffect(() => {
-    // allow id passed in, otherwise fall back to env default
     const envId = id ?? DEFAULT_RECORD_ID ?? null
     if (!envId) return
     const url = buildRecordUrl(envId)

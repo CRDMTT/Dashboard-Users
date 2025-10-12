@@ -4,7 +4,8 @@ import UserTable from '../components/users/UserTable'
 import type { User } from '../types/user'
 import mapApiDataToUsers from '../utils/mapApiDataToUsers'
 import filterUsers from '../utils/filterUsers'
-import { useFetchRecord } from '../api/apiClient'
+import { useFetchRecord, patchRecord, updateRecord } from '../api/apiClient'
+import { DEFAULT_RECORD_ID } from '../api/config'
 import assignRandomRoles from '../utils/assignRandomRoles'
 
 type Props = {
@@ -71,6 +72,57 @@ export default function Dashboard({ recordId }: Props) {
     setActiveRole(null)
   }
 
+  // Handlers for edit/delete actions (optimistic UI + API call)
+  const handleEdit = async (id: string) => {
+    const user = users.find((u) => u.id === id)
+    if (!user) return
+    // simple inline prompt for demo; replace with modal in real UI
+    const newName = window.prompt('Edit user name', user.name)
+    if (newName == null) return
+
+    const prevUsers = users
+    const updatedUsers = users.map((u) => (u.id === id ? { ...u, name: newName } : u))
+    setUsers(updatedUsers)
+
+    try {
+      // For the demo the record stores the raw API payload; here we PATCH the record
+      // with the updated users array under a `users` key. Adjust according to your API.
+      const rid = recordId ?? DEFAULT_RECORD_ID
+      const payload = { data: { users: updatedUsers } }
+      if (rid) {
+        await patchRecord(rid, payload)
+      } else {
+        await updateRecord(DEFAULT_RECORD_ID, payload)
+      }
+    } catch (err) {
+      // rollback
+      console.error('Failed to update record', err)
+      setUsers(prevUsers)
+      alert('Update failed — changes reverted')
+    }
+  }
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Delete this user?')) return
+    const prevUsers = users
+    const updatedUsers = users.filter((u) => u.id !== id)
+    setUsers(updatedUsers)
+
+    try {
+      const rid = recordId ?? DEFAULT_RECORD_ID
+      const payload = { data: { users: updatedUsers } }
+      if (rid) {
+        await patchRecord(rid, payload)
+      } else {
+        await updateRecord(DEFAULT_RECORD_ID, payload)
+      }
+    } catch (err) {
+      console.error('Failed to delete user', err)
+      setUsers(prevUsers)
+      alert('Delete failed — changes reverted')
+    }
+  }
+
   return (
     <div className="section">
       <div className="container-fluid container-lg">
@@ -131,11 +183,11 @@ export default function Dashboard({ recordId }: Props) {
                         )}
                       </div>
                     </div>
-                  ) : (
+                    ) : (
                     <UserTable
                       users={filteredUsers}
-                      onEdit={(id) => alert(`Edit ${id}`)}
-                      onDelete={(id) => alert(`Delete ${id}`)}
+                      onEdit={handleEdit}
+                      onDelete={handleDelete}
                     />
                   )}
                 </>
