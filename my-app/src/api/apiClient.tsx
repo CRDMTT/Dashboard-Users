@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { API_BASE_URL, API_KEY, RECORD_PATH, DEFAULT_RECORD_ID } from './config'
 
 export type ApiError = {
   message: string
@@ -6,8 +7,8 @@ export type ApiError = {
 }
 
 export async function apiFetch<T = any>(path: string, options: RequestInit = {}) {
-  const base = import.meta.env.VITE_API_BASE_URL || ''
-  const apiKey = import.meta.env.VITE_API_KEY || ''
+  const base = API_BASE_URL || ''
+  const apiKey = API_KEY || ''
 
   const url = base ? `${base.replace(/\/$/, '')}/${path.replace(/^\//, '')}` : path
 
@@ -62,10 +63,8 @@ export function useFetchUsers(enabled = true) {
   return { data, loading, error }
 }
 
-// Helper to fetch a specific record from the supplied API example
 export async function fetchRecord(id: string) {
-  // example base for this specific endpoint
-  const url = `https://api.myjson.online/v1/records/${id}`
+  const url = buildRecordUrl(id)
 
   const res = await fetch(url, {
     method: 'GET',
@@ -90,17 +89,27 @@ export async function fetchRecord(id: string) {
   return data
 }
 
-// Hook version for the provided record endpoint
-export function useFetchRecord(id: string | null) {
+export function buildRecordUrl(id: string) {
+  const base = API_BASE_URL || 'https://api.myjson.online'
+  const recordsPath = RECORD_PATH || '/v1/records'
+  return `${base.replace(/\/$/, '')}${recordsPath.startsWith('/') ? recordsPath : '/' + recordsPath}/${id}`
+}
+
+export function useFetchRecord(id?: string | null) {
   const [data, setData] = useState<any | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<ApiError | null>(null)
+  const [lastUrl, setLastUrl] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!id) return
+    // allow id passed in, otherwise fall back to env default
+    const envId = id ?? DEFAULT_RECORD_ID ?? null
+    if (!envId) return
+    const url = buildRecordUrl(envId)
+    setLastUrl(url)
     let mounted = true
     setLoading(true)
-    fetchRecord(id)
+    fetchRecord(envId)
       .then((d) => {
         if (mounted) setData(d)
       })
@@ -115,5 +124,5 @@ export function useFetchRecord(id: string | null) {
     }
   }, [id])
 
-  return { data, loading, error }
+  return { data, loading, error, lastUrl }
 }

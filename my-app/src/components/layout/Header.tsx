@@ -19,7 +19,7 @@ export default function Header() {
 
    return (
       <header className="header">
-         <div className="container">
+         <div className="container-fluid container-lg">
             <div className="row">
                <div className="col-12">
                   <div className="header-wrapper d-flex align-items-center justify-content-between">

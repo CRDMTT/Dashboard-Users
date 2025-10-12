@@ -1,86 +1,47 @@
 import { UIInput, UIButton } from '../components/ui'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import UserTable from '../components/users/UserTable'
-import type { User } from '../components/users/UserTable'
+import type { User } from '../types/user'
+import mapApiDataToUsers from '../utils/mapApiDataToUsers'
+import filterUsers from '../utils/filterUsers'
 import { useFetchRecord } from '../api/apiClient'
+import { DEFAULT_RECORD_ID } from '../api/config'
 import assignRandomRoles from '../utils/assignRandomRoles'
 
-const mockUsers = [
-  { id: '1', name: 'Alice Rossi', position: 'Frontend Developer', role: 'Admin', email: 'alice.rossi@example.com', phone: '345-123-4567', avatar: 'https://i.pravatar.cc/80?img=1', notes: 'Lavora sul team principale di UI/UX.' },
-  { id: '2', name: 'Bruno Bianchi', position: 'Product Manager', role: 'Editor', email: 'bruno.bianchi@example.com', phone: '345-987-6543', avatar: 'https://i.pravatar.cc/80?img=2', notes: 'Focus su roadmap e comunicazione con stakeholders.' },
-  { id: '3', name: 'Carla Verdi', position: 'Designer', role: 'Viewer', email: 'carla.verdi@example.com', avatar: 'https://i.pravatar.cc/80?img=3', notes: 'Specializzata in brand identity e illustrazione.' },
-]
+type Props = {
+  recordId?: string | null
+}
 
-export default function Dashboard() {
+export default function Dashboard({ recordId }: Props) {
   const [activeRole, setActiveRole] = useState<string | null>(null)
   const toggleRole = (role: string) => setActiveRole((cur) => (cur === role ? null : role))
-  const RECORD_ID = '329ea9fe-6f08-4f58-9220-ad9cbe86fe64'
-  const { data: apiData } = useFetchRecord(RECORD_ID)
-  const [users, setUsers] = useState<User[]>(() => mockUsers)
-
-  function mapApiDataToUsers(apiData: any): User[] {
-    if (!apiData) return []
-    let items: any[] = []
-    if (Array.isArray(apiData)) items = apiData
-    else if (apiData.data && Array.isArray(apiData.data)) items = apiData.data
-    else if (apiData.records && Array.isArray(apiData.records)) items = apiData.records
-    else if (apiData.items && Array.isArray(apiData.items)) items = apiData.items
-    else items = [apiData]
-
-    return items.map((r: any, idx: number) => {
-      const id = String(r.id ?? r.uuid ?? r._id ?? r.recordId ?? `${idx}-${Date.now()}`)
-      const first = r.first_name || r.firstname || r.firstName
-      const last = r.last_name || r.lastname || r.lastName
-      const name = (first || last) ? `${(first || '').trim()} ${(last || '').trim()}`.trim() : (r.name || r.fullName || r.title || r.username || 'API User')
-      const position = r.job_title || r.jobTitle || r.position || r.job || r.title || '-'
-      const role = r.role || r.userRole || undefined
-      const email = r.email || r.contact?.email || ''
-      const phone = r.telephone || r.phone || r.contact?.phone || ''
-      const avatar = r.avatar || r.picture || r.image || ''
-      const omitKeys = new Set([
-        'id', 'uuid', '_id', 'recordId',
-        'name', 'fullName', 'title', 'username',
-        'position', 'job', 'job_title', 'jobTitle',
-        'role', 'userRole',
-        'email', 'phone', 'telephone',
-        'avatar', 'picture', 'image',
-        'notes', 'description', 'first_name', 'last_name', 'firstName', 'lastName', 'firstname', 'lastname',
-        'gender', 'ip_address', 'ip'
-      ])
-      
-      const remaining: Record<string, any> = {}
-      Object.keys(r || {}).forEach((k) => {
-        if (!omitKeys.has(k)) remaining[k] = r[k]
-      })
-
-      const aux: string[] = []
-      if (r.gender) aux.push(`Gender: ${r.gender}`)
-      if (r.ip_address) aux.push(`IP: ${r.ip_address}`)
-      const remainingNotes = Object.keys(remaining).length ? JSON.stringify(remaining, null, 2) : ''
-      const notes = r.notes || r.description || ([...aux, remainingNotes].filter(Boolean).join('\n'))
-
-      return {
-        id: String(id),
-        name,
-        position,
-        role,
-        email,
-        phone,
-        avatar,
-        notes,
-      } as User
-    })
-  }
+  // useFetchRecord reads the record id from argument or falls back to VITE_RECORD_ID
+  const { data: apiData, loading: apiLoading, error: apiError, lastUrl } = useFetchRecord(recordId)
+  const [users, setUsers] = useState<User[]>([])
+  const [query, setQuery] = useState<string>('')
+  const [debouncedQuery, setDebouncedQuery] = useState<string>('')
+  const debounceRef = useRef<number | null>(null)
 
   useEffect(() => {
     if (!apiData) return
     const mapped = mapApiDataToUsers(apiData)
-    if (mapped.length) setUsers(assignRandomRoles(mapped))
+    // always update users to reflect latest API data (may be empty)
+    setUsers(assignRandomRoles(mapped))
   }, [apiData])
+
+  useEffect(() => {
+    if (debounceRef.current) window.clearTimeout(debounceRef.current)
+    debounceRef.current = window.setTimeout(() => setDebouncedQuery(query.trim()), 250)
+    return () => {
+      if (debounceRef.current) window.clearTimeout(debounceRef.current)
+    }
+  }, [query])
+
+  const filteredUsers = useMemo(() => filterUsers(users, { query: debouncedQuery, activeRole }), [users, debouncedQuery, activeRole])
 
   return (
     <div className="section">
-      <div className="container">
+      <div className="container-fluid container-lg">
         <div className="row">
           <div className="col-12 col-md-4">
             <div className="searchbox mb-3 mb-lg-0">
@@ -90,6 +51,8 @@ export default function Dashboard() {
                 name="search"
                 type="search"
                 aria-label="Search users"
+                value={query}
+                onChange={(e) => setQuery((e.target as HTMLInputElement).value)}
               />
             </div>
           </div>
@@ -109,13 +72,40 @@ export default function Dashboard() {
 
           <div className="col-12 mt-4">
             <div className="grid-container">
-
-
-              <UserTable
-                users={users}
-                onEdit={(id) => alert(`Edit ${id}`)}
-                onDelete={(id) => alert(`Delete ${id}`)}
-              />
+              {apiLoading ? (
+                <div className="text-center py-5">
+                  <div className="spinner-border" role="status" aria-hidden="true"></div>
+                  <div className="mt-2">Loading users…</div>
+                </div>
+              ) : (
+                <>
+                  {filteredUsers.length === 0 ? (
+                    <div className="py-4">
+                      <div className="alert alert-info" role="status">
+                        {apiError ? (
+                          <div>
+                            <strong>API Error:</strong> {apiError.message} (status: {apiError.status ?? 'unknown'})
+                          </div>
+                        ) : (
+                          <div>
+                            <strong>No users returned by the API.</strong>
+                            <div className="mt-2 small text-muted">Requested URL: <code>{lastUrl}</code></div>
+                            <div className="mt-1 small text-muted">Resolved record id: <code>{recordId ?? DEFAULT_RECORD_ID ?? 'none'}</code></div>
+                            <div className="mt-2 small text-muted">Response preview:</div>
+                            <pre style={{ maxHeight: 200, overflow: 'auto' }}>{JSON.stringify(apiData, null, 2)}</pre>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <UserTable
+                      users={filteredUsers}
+                      onEdit={(id) => alert(`Edit ${id}`)}
+                      onDelete={(id) => alert(`Delete ${id}`)}
+                    />
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>

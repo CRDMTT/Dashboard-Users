@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # Local API env (do not commit)
-src/api/.env
+.env

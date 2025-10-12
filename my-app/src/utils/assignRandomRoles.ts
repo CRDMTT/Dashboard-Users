@@ -1,4 +1,4 @@
-import type { User } from '../components/users/UserTable'
+import type { User } from '../types/user'
 
 const ROLES = ['Admin', 'Editor', 'Viewer'] as const
 
