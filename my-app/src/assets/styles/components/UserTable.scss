@@ -81,6 +81,10 @@
           }
         }
       }
+
+      @media (max-width: 1200px) {
+        table-layout: auto;
+      }
     }
 
     /* USER ACCORDION */
@@ -163,7 +167,7 @@
       }
     }
 
-    
+
 
     @media (max-width: 768px) {
       border-radius: 10px;

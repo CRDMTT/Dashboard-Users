@@ -99,6 +99,7 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                               <p><strong>Country:</strong> <span className="user-country">{u.country}, {u.countryCode}</span></p>
                               <p><strong>City:</strong> <span className="user-city">{u.location}</span></p>
                               <p><strong>Address:</strong> <span className="user-address">{u.streetAddress}</span></p>
+                              <p><strong>IBAN:</strong> <span className="user-iban">{u.iban}</span></p>
                             </div>
 
                             <div className="col-6">
@@ -120,8 +121,8 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                             </div>
 
                             <div className="col-6">
+                              <p><strong>Role:</strong> <span className="user-role">{u.role}</span></p>
                               <p><strong>IP Address:</strong> <span className="user-ip">{u.ipAddress}</span></p>
-                              <p><strong>IBAN:</strong> <span className="user-iban">{u.iban}</span></p>
                             </div>
                           </div>
                         </div>

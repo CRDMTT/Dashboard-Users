@@ -51,14 +51,38 @@
     }
 
     &:active {
-      background: rgba(0, 0, 0, 0.1);
+      background: unset;
       border: 0;
       border: 2px solid var(--secondary-outline) !important;
+      background-color: var(--secondary) !important;
+      color: var(--text-black) !important;
+    }
+
+    &[aria-pressed="true"], &.active {
+      position: relative;
+
+      &::after {
+        content: '✕';
+        position: absolute;
+        top: rem(-6px);
+        right: rem(-6px);
+        width: rem(18px);
+        height: rem(18px);
+        font-size: rem(12px);
+        background: var(--bg-page);
+        border-radius: 50%;
+        border: 1px solid rgba(0,0,0,0.08);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+      }
     }
   }
 
   &-theme {
     padding: 0;
+
+    &:active {
+      border-color: transparent !important;
+    }
 
     .theme-icon {
       width: rem(45px);
@@ -101,7 +125,6 @@
     }
   }
 
-  &:focus,
   &:focus-visible {
     outline: 2px solid #6464ff40;
     outline-offset: 2px;

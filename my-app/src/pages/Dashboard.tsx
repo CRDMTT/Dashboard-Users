@@ -5,7 +5,6 @@ import type { User } from '../types/user'
 import mapApiDataToUsers from '../utils/mapApiDataToUsers'
 import filterUsers from '../utils/filterUsers'
 import { useFetchRecord } from '../api/apiClient'
-import { DEFAULT_RECORD_ID } from '../api/config'
 import assignRandomRoles from '../utils/assignRandomRoles'
 
 type Props = {
@@ -15,11 +14,14 @@ type Props = {
 export default function Dashboard({ recordId }: Props) {
   const [activeRole, setActiveRole] = useState<string | null>(null)
   const toggleRole = (role: string) => setActiveRole((cur) => (cur === role ? null : role))
-  const { data: apiData, loading: apiLoading, error: apiError, lastUrl } = useFetchRecord(recordId)
+  const { data: apiData, loading: apiLoading, error: apiError } = useFetchRecord(recordId)
   const [users, setUsers] = useState<User[]>([])
   const [query, setQuery] = useState<string>('')
   const [debouncedQuery, setDebouncedQuery] = useState<string>('')
   const debounceRef = useRef<number | null>(null)
+  // Spinner management: keep spinner visible for a minimum time to avoid flash
+  const [showSpinner, setShowSpinner] = useState(false)
+  const spinnerStartRef = useRef<number | null>(null)
 
   useEffect(() => {
     if (!apiData) return
@@ -36,7 +38,33 @@ export default function Dashboard({ recordId }: Props) {
   }, [query])
 
   const filteredUsers = useMemo(() => filterUsers(users, { query: debouncedQuery, activeRole }), [users, debouncedQuery, activeRole])
-  const hasApiUsers = users.length > 0
+  const spinnerShouldBeVisible = apiLoading || (apiData == null && users.length === 0)
+
+  useEffect(() => {
+    const MIN_SPINNER_MS = 480
+    let timeoutId: number | undefined
+    if (spinnerShouldBeVisible) {
+      spinnerStartRef.current = Date.now()
+      setShowSpinner(true)
+    } else {
+      const start = spinnerStartRef.current
+      if (!start) {
+        setShowSpinner(false)
+      } else {
+        const elapsed = Date.now() - start
+        const remaining = Math.max(0, MIN_SPINNER_MS - elapsed)
+        if (remaining > 0) {
+          timeoutId = window.setTimeout(() => setShowSpinner(false), remaining)
+        } else {
+          setShowSpinner(false)
+        }
+        spinnerStartRef.current = null
+      }
+    }
+    return () => {
+      if (timeoutId) window.clearTimeout(timeoutId)
+    }
+  }, [spinnerShouldBeVisible])
   const resetFilters = () => {
     setQuery('')
     setDebouncedQuery('')
@@ -76,7 +104,7 @@ export default function Dashboard({ recordId }: Props) {
 
           <div className="col-12 mt-4">
             <div className="grid-container">
-              {apiLoading ? (
+              {showSpinner ? (
                 <div className="text-center py-5">
                   <div className="spinner-border" role="status" aria-hidden="true"></div>
                   <div className="mt-2">Loading users…</div>
@@ -90,7 +118,7 @@ export default function Dashboard({ recordId }: Props) {
                           <div>
                             <strong>API Error:</strong> {apiError.message} (status: {apiError.status ?? 'unknown'})
                           </div>
-                        ) : hasApiUsers ? (
+                        ) : (
                           <div>
                             <strong>Invalid search</strong>
                             <div className="mt-2 small text-muted">No results found for the applied search or filters.</div>
@@ -99,14 +127,6 @@ export default function Dashboard({ recordId }: Props) {
                             <div className="mt-3">
                               <UIButton variant="secondary" onClick={resetFilters}>Reset filters</UIButton>
                             </div>
-                          </div>
-                        ) : (
-                          <div>
-                            <strong>No users returned by the API.</strong>
-                            <div className="mt-2 small text-muted">Requested URL: <code>{lastUrl}</code></div>
-                            <div className="mt-1 small text-muted">Resolved record id: <code>{recordId ?? DEFAULT_RECORD_ID ?? 'none'}</code></div>
-                            <div className="mt-2 small text-muted">Response preview:</div>
-                            <pre style={{ maxHeight: 200, overflow: 'auto' }}>{JSON.stringify(apiData, null, 2)}</pre>
                           </div>
                         )}
                       </div>
