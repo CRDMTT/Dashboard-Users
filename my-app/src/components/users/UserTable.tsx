@@ -1,17 +1,7 @@
 import React, { useState } from 'react'
 import '../../assets/styles/components/UserTable.scss'
-import { UIAccordionToggle, UIButton } from '../ui'
-
-export type User = {
-  id: string
-  name: string
-  position: string
-  role: string
-  email: string
-  phone?: string
-  avatar?: string
-  notes?: string
-}
+import { UIAccordionToggle, UIButton, UIHeading } from '../ui'
+import type { User } from '../../types/user'
 
 type Props = {
   users: User[]
@@ -69,7 +59,7 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                       <span className="user-name">{u.name}</span>
                     </div>
                   </td>
-                  <td><span className="user-position">{u.position}</span></td>
+                  <td><span className="user-jobTitle">{u.jobTitle}</span></td>
                   <td><span className="user-role">{u.role}</span></td>
                   <td><span className="user-email">{u.email}</span></td>
                   <td><span className="user-phone">{u.phone || '—'}</span></td>
@@ -99,17 +89,42 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
 
                 <tr id={`detail-${u.id}`} className={`user-detail ${isOpen ? 'is-open' : ''}`}>
                   <td className='p-0' colSpan={7}>
-                    <div className="container">
+                    <div className="container-fluid">
                       <div className="row user-detail__content">
-                          <div className="col-3 offset-2 user-detail__row user-detail__row--info">
-                          <p><strong>Posizione:</strong> <span className="user-position">{u.position}</span></p>
-                          <p><strong>Role:</strong> <span className="user-role">{u.role}</span></p>
-                          <p><strong>Email:</strong> <span className="user-email">{u.email}</span></p>
-                          <p><strong>Telefono:</strong> <span className="user-phone">{u.phone || 'Non disponibile'}</span></p>
+                        <div className="col-5 offset-1 user-detail__row user-detail__row--info">
+                          <UIHeading level={3}>Personal Information</UIHeading>
+                          <div className="row">
+                            <div className="col-6">
+                              <p><strong>Gender:</strong> <span className="user-gender">{u.gender}</span></p>
+                              <p><strong>Country:</strong> <span className="user-country">{u.country}, {u.countryCode}</span></p>
+                              <p><strong>City:</strong> <span className="user-city">{u.location}</span></p>
+                              <p><strong>Address:</strong> <span className="user-address">{u.streetAddress}</span></p>
+                              <p><strong>IBAN:</strong> <span className="user-iban">{u.iban}</span></p>
+                            </div>
+
+                            <div className="col-6">
+                              <p><strong>Postal Code:</strong> <span className="user-ip">{u.postalCode}</span></p>
+                              <p><strong>Time Zone:</strong> <span className="user-timezone">{u.timeZone}</span></p>
+                              <p><strong>Language:</strong> <span className="user-language">{u.language}</span></p>
+                            </div>
+                          </div>
                         </div>
 
-                          <div className="col-3 user-detail__row user-detail__row--notes">
-                          <p><span className="user-notes">{u.notes || '—'}</span></p>
+                        <div className="col-6 user-detail__row user-detail__row">
+                          <UIHeading level={3}>Professional Information</UIHeading>
+                          <div className='row'>
+                            <div className="col-6">
+                              <p><strong>Username:</strong> <span className="user-username">{u.username}</span></p>
+                              <p><strong>Company:</strong> <span className="user-company">{u.companyName}</span></p>
+                              <p><strong>Department:</strong> <span className="user-department">{u.department}</span></p>
+                              <p><strong>Job Title:</strong> <span className="user-jobTitle">{u.jobTitle}</span></p>
+                            </div>
+
+                            <div className="col-6">
+                              <p><strong>Role:</strong> <span className="user-role">{u.role}</span></p>
+                              <p><strong>IP Address:</strong> <span className="user-ip">{u.ipAddress}</span></p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
