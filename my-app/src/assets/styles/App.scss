@@ -55,6 +55,13 @@ a:hover {
   color: var(--gold-hover);
 }
 
+.grid-container {
+  .alert-info{
+    background-color: var(--alert-bg);
+    border: var(--alert-border);
+  }
+}
+
 @media (max-width: 991px) {
   .container {
     max-width: 960px;

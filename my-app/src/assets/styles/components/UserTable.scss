@@ -9,8 +9,16 @@
 
     .user-table {
       width: 100%;
-      table-layout: auto; /* prevent auto layout so columns respect available space */
+      table-layout: fixed;
       border-collapse: collapse;
+
+      th:nth-child(1), td:nth-child(1) { width: 20px; }
+      th:nth-child(2), td:nth-child(2) { width: 22%; }
+      th:nth-child(3), td:nth-child(3) { width: 18%; }
+      th:nth-child(4), td:nth-child(4) { width: 12%; }
+      th:nth-child(5), td:nth-child(5) { width: 20%; }
+      th:nth-child(6), td:nth-child(6) { width: 10%; }
+      th:nth-child(7), td:nth-child(7) { width: 60px; }
 
       th {
         padding: rem(15px) rem(10px);
@@ -154,6 +162,8 @@
         }
       }
     }
+
+    
 
     @media (max-width: 768px) {
       border-radius: 10px;

@@ -15,7 +15,6 @@ type Props = {
 export default function Dashboard({ recordId }: Props) {
   const [activeRole, setActiveRole] = useState<string | null>(null)
   const toggleRole = (role: string) => setActiveRole((cur) => (cur === role ? null : role))
-  // useFetchRecord reads the record id from argument or falls back to VITE_RECORD_ID
   const { data: apiData, loading: apiLoading, error: apiError, lastUrl } = useFetchRecord(recordId)
   const [users, setUsers] = useState<User[]>([])
   const [query, setQuery] = useState<string>('')
@@ -25,7 +24,6 @@ export default function Dashboard({ recordId }: Props) {
   useEffect(() => {
     if (!apiData) return
     const mapped = mapApiDataToUsers(apiData)
-    // always update users to reflect latest API data (may be empty)
     setUsers(assignRandomRoles(mapped))
   }, [apiData])
 
@@ -38,6 +36,12 @@ export default function Dashboard({ recordId }: Props) {
   }, [query])
 
   const filteredUsers = useMemo(() => filterUsers(users, { query: debouncedQuery, activeRole }), [users, debouncedQuery, activeRole])
+  const hasApiUsers = users.length > 0
+  const resetFilters = () => {
+    setQuery('')
+    setDebouncedQuery('')
+    setActiveRole(null)
+  }
 
   return (
     <div className="section">
@@ -80,11 +84,21 @@ export default function Dashboard({ recordId }: Props) {
               ) : (
                 <>
                   {filteredUsers.length === 0 ? (
-                    <div className="py-4">
+                    <div className="pb-4">
                       <div className="alert alert-info" role="status">
                         {apiError ? (
                           <div>
                             <strong>API Error:</strong> {apiError.message} (status: {apiError.status ?? 'unknown'})
+                          </div>
+                        ) : hasApiUsers ? (
+                          <div>
+                            <strong>Invalid search</strong>
+                            <div className="mt-2 small text-muted">No results found for the applied search or filters.</div>
+                            {debouncedQuery ? <div className="mt-1 small text-muted">Query: <code>{debouncedQuery}</code></div> : null}
+                            {activeRole ? <div className="mt-1 small text-muted">Role filter: <code>{activeRole}</code></div> : null}
+                            <div className="mt-3">
+                              <UIButton variant="secondary" onClick={resetFilters}>Reset filters</UIButton>
+                            </div>
                           </div>
                         ) : (
                           <div>

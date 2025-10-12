@@ -109,7 +109,7 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                           </div>
                         </div>
 
-                        <div className="col-5 user-detail__row user-detail__row">
+                        <div className="col-6 user-detail__row user-detail__row">
                           <UIHeading level={3}>Professional Information</UIHeading>
                           <div className='row'>
                             <div className="col-6">
@@ -118,7 +118,7 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                               <p><strong>Department:</strong> <span className="user-department">{u.department}</span></p>
                               <p><strong>Job Title:</strong> <span className="user-jobTitle">{u.jobTitle}</span></p>
                             </div>
-                            
+
                             <div className="col-6">
                               <p><strong>IP Address:</strong> <span className="user-ip">{u.ipAddress}</span></p>
                               <p><strong>IBAN:</strong> <span className="user-iban">{u.iban}</span></p>
