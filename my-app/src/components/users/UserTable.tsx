@@ -101,14 +101,14 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                   <td className='p-0' colSpan={7}>
                     <div className="container">
                       <div className="row user-detail__content">
-                          <div className="col-3 offset-2 user-detail__row user-detail__row--info">
+                          <div className="col-4 offset-2 user-detail__row user-detail__row--info">
                           <p><strong>Posizione:</strong> <span className="user-position">{u.position}</span></p>
                           <p><strong>Role:</strong> <span className="user-role">{u.role}</span></p>
                           <p><strong>Email:</strong> <span className="user-email">{u.email}</span></p>
                           <p><strong>Telefono:</strong> <span className="user-phone">{u.phone || 'Non disponibile'}</span></p>
                         </div>
 
-                          <div className="col-3 user-detail__row user-detail__row--notes">
+                          <div className="col-5 user-detail__row user-detail__row--notes">
                           <p><span className="user-notes">{u.notes || '—'}</span></p>
                         </div>
                       </div>
