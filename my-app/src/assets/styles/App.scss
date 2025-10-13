@@ -10,22 +10,9 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
+  min-width: rem(320px);
   min-height: 100vh;
   font-family: var(--font-family);
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-  &:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  &.react:hover {
-    filter: drop-shadow(0 0 2em #61dafbaa);
-  }
 }
 
 .page-container {
@@ -45,25 +32,9 @@ p, span {
   overflow-wrap: break-word;
 }
 
-a {
-  font-weight: 500;
-  color: var(--gold);
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: var(--gold-hover);
-}
-
 .grid-container {
   .alert-info{
     background-color: var(--alert-bg);
     border: var(--alert-border);
-  }
-}
-
-@media (max-width: 991px) {
-  .container {
-    max-width: 960px;
   }
 }

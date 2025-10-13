@@ -1,7 +1,6 @@
 @use '../_helpers' as *;
 
 .user-table { 
-
   &__wrap {
     overflow-x: auto;
     background-color: var(--white-bg);
@@ -12,13 +11,13 @@
       table-layout: fixed;
       border-collapse: collapse;
 
-      th:nth-child(1), td:nth-child(1) { width: 20px; }
+      th:nth-child(1), td:nth-child(1) { width: rem(20px); }
       th:nth-child(2), td:nth-child(2) { width: 22%; }
       th:nth-child(3), td:nth-child(3) { width: 18%; }
       th:nth-child(4), td:nth-child(4) { width: 12%; }
       th:nth-child(5), td:nth-child(5) { width: 20%; }
       th:nth-child(6), td:nth-child(6) { width: 10%; }
-      th:nth-child(7), td:nth-child(7) { width: 60px; }
+      th:nth-child(7), td:nth-child(7) { width: rem(60px); }
 
       th {
         padding: rem(15px) rem(10px);
@@ -32,7 +31,7 @@
       th,
       td {
         text-align: left;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+        border-bottom: 1px solid #0000000f;
         white-space: nowrap;
         overflow: hidden;
       }
@@ -41,7 +40,7 @@
         cursor: pointer;
 
         &:hover {
-          background: rgba(0, 0, 0, 0.02);
+          background: #00000005;
         }
       }
 
@@ -52,18 +51,18 @@
       .user-phone,
       .user-notes {
         display: inline-block;
-        max-width: 160px;
+        max-width: rem(160px);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
         vertical-align: middle;
       }
 
-      .user-name { max-width: 180px; }
-      .user-position { max-width: 160px; }
-      .user-email { max-width: 220px; }
-      .user-role { max-width: 120px; }
-      .user-phone { max-width: 120px; }
+      .user-name { max-width: rem(180px); }
+      .user-position { max-width: rem(160px); }
+      .user-email { max-width: rem(220px); }
+      .user-role { max-width: rem(120px); }
+      .user-phone { max-width: rem(120px); }
 
       .user-row {
         .user-cell {
@@ -77,7 +76,7 @@
         .wrapper {
             display: flex;
             justify-content: center;
-            gap: 0.5rem;
+            gap: rem(8px);
           }
         }
       }
@@ -87,20 +86,19 @@
       }
     }
 
-    /* USER ACCORDION */
     .accordion-toggle {
       background: transparent;
       border: none;
       cursor: pointer;
-      font-size: 1rem;
-      border: 2px solid transparent;
+      font-size: rem(16px);
+      border: rem(2px) solid transparent;
       border-radius: var(--radius-10);
 
       &:focus,
       &:focus-visible {
-        outline: 2px solid #6464ff40;
-        outline-offset: 2px;
-        border: 2px solid transparent;
+        outline: rem(2px) solid #6464ff40;
+        outline-offset: rem(2px);
+        border: rem(2px) solid transparent;
         color: unset;
         background-color: unset;
         box-shadow: none;
@@ -167,10 +165,8 @@
       }
     }
 
-
-
     @media (max-width: 768px) {
-      border-radius: 10px;
+      border-radius: rem(10px);
     }
   }
 }
