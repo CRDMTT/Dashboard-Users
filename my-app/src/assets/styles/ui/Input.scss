@@ -2,8 +2,8 @@
 
 .input-box {
   &__label {
-    font-size: 0.85rem;
-    margin-bottom: 0.25rem;
+    font-size: rem(12px);
+    margin-bottom: rem(4px);
     color: var(--text-grey);
   }
 
@@ -12,7 +12,7 @@
 
     .input {
       padding: rem(8px) rem(10px);
-      border: 2px solid transparent;
+      border: rem(2px) solid transparent;
       border-radius: var(--radius-10);
       width: 100%;
       font-size: var(--paragraph);
@@ -29,9 +29,9 @@
 
       &:focus,
       &:focus-visible {
-        outline: 2px solid #6464ff40;
-        outline-offset: 2px;
-        border: 2px solid transparent;
+        outline: rem(2px) solid #6464ff40;
+        outline-offset: rem(2px);
+        border: rem(2px) solid transparent;
         background-color: unset;
         box-shadow: none;
       }
@@ -42,7 +42,7 @@
       align-items: center;
       justify-content: center;
       position: absolute;
-      left: 12px;
+      left: rem(12px);
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-grey);

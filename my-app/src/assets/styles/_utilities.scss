@@ -1,4 +1,5 @@
 @use './_variables' as *;
+@use './_helpers' as *;
 
 :root {
   /*FONT*/
@@ -36,14 +37,8 @@
   --thin: 300;
 
   /*TEXT COLORS*/
-  --text-grey: #6e6e6e;
   --text-black: #1e1e1e;
   --text-white: #f9f9f9;
-
-  /*ASPECT RATIOS*/
-  --16-9: 56.25%;
-  --4-5: 125%;
-  --1-1: 100%;
 
   /*TYPOGRAPHY*/
   --title-1: #{$title-1};
@@ -63,13 +58,13 @@
 
 .visually-hidden {
   position: absolute !important;
-  height: 1px; width: 1px;
+  height: 1px; 
+  width: 1px;
   overflow: hidden;
   clip: rect(1px, 1px, 1px, 1px);
   white-space: nowrap;
   border: 0;
   padding: 0;
-  margin: -1px;
 }
 
 /* Dark theme overrides */
@@ -114,22 +109,22 @@
     &-primary {
       background: var(--primary);
       color: var(--text-black);
-      border: 2px solid transparent;
+      border: rem(2px) solid transparent;
 
       &:hover {
         border: 0;
-        border: 2px solid var(--primary-hover);
+        border: rem(2px) solid var(--primary-hover);
       }
     }
 
     &-secondary {
       background: var(--secondary);
       color: var(--text-white);
-      border: 2px solid transparent;
+      border: rem(2px) solid transparent;
 
       &:hover {
         border: 0;
-        border: 2px solid var(--secondary-outline);
+        border: rem(2px) solid var(--secondary-outline);
       }
     }
   }

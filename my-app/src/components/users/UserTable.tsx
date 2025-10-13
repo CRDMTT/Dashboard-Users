@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import '../../assets/styles/components/UserTable.scss'
 import { UIAccordionToggle, UIButton, UIHeading } from '../ui'
 import type { User } from '../../types/user'
@@ -9,7 +9,7 @@ type Props = {
   onDelete: (id: string) => void
 }
 
-export default function UserTable({ users, onEdit, onDelete }: Props) {
+function UserTable({ users, onEdit, onDelete }: Props) {
   const [openId, setOpenId] = useState<string | null>(null)
   const toggle = (id: string) => setOpenId((cur) => (cur === id ? null : id))
 
@@ -55,6 +55,10 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
                         className="user-avatar user-avatar--inline"
                         src={u.avatar || `https://i.pravatar.cc/80?u=${u.email}`}
                         alt={`${u.name} avatar`}
+                        width={40}
+                        height={40}
+                        loading="lazy"
+                        decoding="async"
                       />
                       <span className="user-name">{u.name}</span>
                     </div>
@@ -138,3 +142,5 @@ export default function UserTable({ users, onEdit, onDelete }: Props) {
     </div>
   )
 }
+
+export default memo(UserTable)
