@@ -1,5 +1,5 @@
 import { UIInput, UIButton } from '../components/ui'
-import { useState, useEffect, useMemo, useRef } from 'react'
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import UserTable from '../components/users/UserTable'
 import type { User } from '../types/user'
 import mapApiDataToUsers from '../utils/mapApiDataToUsers'
@@ -58,7 +58,6 @@ export default function Dashboard({ recordId }: Props) {
 
   const startIndex = (page - 1) * PAGE_SIZE
   const endIndex = Math.min(startIndex + PAGE_SIZE, filteredUsers.length)
-  const pagedUsers = filteredUsers.slice(startIndex, endIndex)
 
   useEffect(() => {
     const MIN_SPINNER_MS = 480
@@ -91,8 +90,11 @@ export default function Dashboard({ recordId }: Props) {
     setActiveRole(null)
   }
 
+  // Memoize paged users to avoid re-slicing on unrelated updates
+  const pagedUsers = useMemo(() => filteredUsers.slice(startIndex, endIndex), [filteredUsers, startIndex, endIndex])
+
   // Handlers for edit/delete actions (optimistic UI + API call)
-  const handleEdit = async (id: string) => {
+  const handleEdit = useCallback(async (id: string) => {
     const user = users.find((u) => u.id === id)
     if (!user) return
     // simple inline prompt for demo; replace with modal in real UI
@@ -119,9 +121,9 @@ export default function Dashboard({ recordId }: Props) {
       setUsers(prevUsers)
       alert('Update failed — changes reverted')
     }
-  }
+  }, [users, recordId, setUsers])
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = useCallback(async (id: string) => {
     if (!confirm('Delete this user?')) return
     const prevUsers = users
     const updatedUsers = users.filter((u) => u.id !== id)
@@ -140,7 +142,7 @@ export default function Dashboard({ recordId }: Props) {
       setUsers(prevUsers)
       alert('Delete failed — changes reverted')
     }
-  }
+  }, [users, recordId, setUsers])
 
   return (
     <div className="section">

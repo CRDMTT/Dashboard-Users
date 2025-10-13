@@ -37,6 +37,14 @@
         overflow: hidden;
       }
 
+      tr {
+        cursor: pointer;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.02);
+        }
+      }
+
       .user-name,
       .user-position,
       .user-role,
@@ -56,14 +64,6 @@
       .user-email { max-width: 220px; }
       .user-role { max-width: 120px; }
       .user-phone { max-width: 120px; }
-
-      tr {
-        cursor: pointer;
-
-        &:hover {
-          background: rgba(0, 0, 0, 0.02);
-        }
-      }
 
       .user-row {
         .user-cell {
