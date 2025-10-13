@@ -1,12 +1,10 @@
 import { UIInput, UIButton } from '../components/ui'
 import { useState, useEffect, useMemo, useRef, useCallback } from 'react'
-import UserTable from '../components/users/UserTable'
-import type { User } from '../types/user'
-import mapApiDataToUsers from '../utils/mapApiDataToUsers'
-import filterUsers from '../utils/filterUsers'
 import { useFetchRecord, patchRecord, updateRecord } from '../api/apiClient'
 import { DEFAULT_RECORD_ID } from '../api/config'
-import assignRandomRoles from '../utils/assignRandomRoles'
+import type { User } from '../types/user'
+import { assignRandomRoles, filterUsers, mapApiDataToUsers } from '../utils'
+import UserTable from '../components/users/UserTable'
 
 type Props = {
   recordId?: string | null
