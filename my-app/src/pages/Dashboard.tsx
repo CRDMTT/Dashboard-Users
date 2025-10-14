@@ -1,4 +1,4 @@
-import { UIInput, UIButton } from '../components/ui'
+import { UIInput, FilterToolbar } from '../components/ui'
 import { useEffect, useRef, useState } from 'react'
 import { useFetchRecord } from '../api/apiClient'
 import { assignRandomRoles, mapApiDataToUsers, useSearch, useUserActions } from '../utils'
@@ -36,11 +36,7 @@ export default function Dashboard({ recordId }: Props) {
           <div className="col-12 col-md-7">
             <div className="inline-buttons d-flex align-items-center" style={{ gap: '10px' }}>
               <div className='pr-2' style={{ width: 'fit-content' }}><p className="mb-0">Filter by role:</p></div>
-              <div className='d-flex' role="toolbar" aria-label="Filter by role" style={{ gap: '5px' }}>
-                <UIButton variant="secondary" aria-pressed={activeRole === 'Admin'} onClick={() => toggleRole('Admin')}>Admin</UIButton>
-                <UIButton variant="secondary" aria-pressed={activeRole === 'Editor'} onClick={() => toggleRole('Editor')}>Editor</UIButton>
-                <UIButton variant="secondary" aria-pressed={activeRole === 'Viewer'} onClick={() => toggleRole('Viewer')}>Viewer</UIButton>
-              </div>
+              <FilterToolbar activeRole={activeRole} toggleRole={toggleRole} roles={['Admin', 'Editor', 'Viewer']} />
             </div>
           </div>
 
