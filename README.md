@@ -1,20 +1,20 @@
-Dashboard-Users
+# Dashboard-Users
 ## How to Run the Project
 
 This project is a React-based dashboard that integrates a mock REST API to display, search, and filter user data.
 To run the project locally, make sure you have Node.js (v18 or higher) and npm or yarn installed.
 
 Installation
-# Clone the repository
+### Clone the repository
 git clone https://github.com/CRDMTT/Dashboard-Users.git
 
-# Navigate to the project directory
+### Navigate to the project directory
 cd my-app
 
-# Install dependencies
+### Install dependencies
 npm install
 
-# Start the development server
+### Start the development server
 npm run dev
 
 The app will be available at http://localhost:5173
@@ -54,15 +54,12 @@ and then uploaded to myjson.online, allowing the app to connect to the mock data
 The communication logic with the external service is centralized in src/api/ to keep the rest of the app clean and easily testable.
 
 Main modules:
-    - src/api/apiClient.ts — Lightweight HTTP client with reusable functions (apiFetch, fetchRecord(id)), and React hooks (useFetchRecord, useFetchUsers) handling loading, errors, and parsing.
-
-    - src/utils/mapApiDataToUsers.ts — Normalizes varying JSON field names into the standard User model (e.g., first_name, job_title, etc.).
-
-    - src/utils/useDebouncedValue.ts — Reusable debounce hook returning a debounced version of a value.
-    - src/utils/useSearch.ts — Higher-level hook that encapsulates search state (query, activeRole), uses `useDebouncedValue`, and returns `filteredUsers` plus helpers (toggleRole, resetFilters).
-    - src/utils/useUserActions.ts — Encapsulates edit/delete actions (optimistic updates, patch/update calls and rollback on failure) for easier reuse and testing.
-
-    - src/api/config.ts — Contains demo constants (base URL, paths, sample IDs) for easier setup without .env configuration.
+    src/api/apiClient.ts — Lightweight HTTP client with reusable functions (apiFetch, fetchRecord(id)), and React hooks (useFetchRecord, useFetchUsers) handling loading, errors, and parsing.
+    src/utils/mapApiDataToUsers.ts — Normalizes varying JSON field names into the standard User model (e.g., first_name, job_title, etc.).
+    src/utils/useDebouncedValue.ts — Reusable debounce hook returning a debounced version of a value.
+    src/utils/useSearch.ts — Higher-level hook that encapsulates search state (query, activeRole), uses `useDebouncedValue`, and returns `filteredUsers` plus helpers (toggleRole, resetFilters).
+    src/utils/useUserActions.ts — Encapsulates edit/delete actions (optimistic updates, patch/update calls and rollback on failure) for easier reuse and testing.
+    src/api/config.ts — Contains demo constants (base URL, paths, sample IDs) for easier setup without .env configuration.
 
 ⚠️ Note: Since this is a demo, API credentials are stored in plain text.
 
@@ -98,16 +95,16 @@ Role Filter:
 This project uses Jest + ts-jest for unit tests.
 Tests are located under src/utils/__tests__/ and focus on pure logic to ensure fast and stable results.
 
-# Enter the app folder
+### Enter the app folder
 cd my-app
 
-# Install dependencies (if needed)
+### Install dependencies (if needed)
 npm install
 
-# Run all tests
+### Run all tests
 npm test
 
-# Watch mode
+### Watch mode
 npm run test:watch
 
 Test Coverage:
@@ -141,6 +138,6 @@ You can preview and test component variants in the UI, including:
 - Buttons: Primary, Secondary, Theme, Delete, Edit
 - Inputs and Toggles: check hover/focus states and consistency with design system
 
-## Bonus: Edit/Delete Demo Behavior ##
+## Bonus: Edit/Delete Demo Behavior
 As a small bonus, edit and delete actions were added to each row. These trigger optimistic updates (UI updates immediately) and then attempt to persist changes to the demo API.
 Because the demo API is read-only, write requests fail — but the app handles rollback gracefully.
