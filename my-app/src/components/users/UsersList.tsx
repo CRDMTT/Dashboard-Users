@@ -1,4 +1,4 @@
-import { UIButton } from '../ui'
+import { UIButton, Pagination } from '../ui'
 import UserTable from './UserTable'
 import { useUsersList } from '../../utils/useUsersList'
 import type { User } from '../../types/user'
@@ -63,16 +63,8 @@ export default function UsersList({ filteredUsers, apiLoading, apiError, apiData
 
   return (
     <>
-      <UserTable users={pagedUsers} onEdit={onEdit} onDelete={onDelete} />
-
-      <div className="d-flex justify-content-between align-items-center mt-3">
-        <span>Showing {startIndex + 1}–{endIndex} of {filteredUsers.length}</span>
-        <div>
-          <UIButton variant="secondary" onClick={goPrev} disabled={page === 1}>Prev</UIButton>
-          <span className="mx-2">Page {page} / {totalPages}</span>
-          <UIButton variant="secondary" onClick={goNext} disabled={page === totalPages}>Next</UIButton>
-        </div>
-      </div>
+        <UserTable users={pagedUsers} onEdit={onEdit} onDelete={onDelete} />
+        <Pagination page={page} totalPages={totalPages} startIndex={startIndex} endIndex={endIndex} total={filteredUsers.length} onNext={goNext} onPrev={goPrev} />
     </>
   )
 }
