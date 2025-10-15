@@ -1,8 +1,8 @@
 # Dashboard-Users
 ## How to Run the Project
-
-This project is a React-based dashboard that integrates a mock REST API to display, search, and filter user data.
-To run the project locally, make sure you have Node.js (v18 or higher) and npm or yarn installed.
+A React dashboard application that integrates a REST API exposing user data.
+The project implements custom search, filtering, and data rendering logic to enable interactive user management.
+To set up and run the project locally, ensure Node.js (v18+) and a package manager (npm or yarn) are installed.
 
 Installation
 ### Clone the repository
@@ -18,41 +18,39 @@ npm install
 npm run dev
 
 The app will be available at http://localhost:5173
- (or another port if specified).
-
+(or another port if specified).
 
 ## UX / UI Design
 The design inspiration is available in public/UI-Mockup.webp.
 Development began by implementing the static layout and core UI components, including:
-- Primary and secondary buttons
-- Color palette and typography
-- Dark mode toggle
-- Search bar input field
+- Layout component structured with Header, Main, and Footer subcomponents.
+- Inside Main, you can find the import of the Dashboard component, which includes UsersList.tsx as the main container of the dashboard.
+- Inside UsersList.tsx, there is a UserTable component that renders each user row through a loop.
+- The UI folder contains atomic components such as Button, Heading, Input, and SVG (each includes variants for different use cases).
+- FilterToolbar component, which renders filter buttons dynamically through a loop.
+- Pagination component used for page navigation.
+- Color palette and typography system.
+- Dark mode toggle for switching between light and dark themes.
 
-After defining the layout, a user table was created using mock data to design and test the grid structure and responsive behavior.
+After defining the user table layout, a static dataset has been used to design and test the grid structure and responsive behavior.
 Accessibility improvements were later applied to enhance semantic markup, screen reader support, and keyboard navigation consistency.
 
 ## Accessibility Improvements
 Key accessibility updates include:
 Icons: 
 - Decorative SVG icons marked as non-interactive (aria-hidden="true", focusable="false").
-
 Forms: 
 - UIInput supports labels and generates accessible IDs using React.useId().
-
 Tables: 
 - UserTable includes a visually hidden <caption> and uses th scope="col" for headers. Accordion toggles expose aria-expanded and aria-controls.
-
 Buttons and Toggles:
 - Theme toggle exposes role="switch" and aria-checked.
 - Action buttons (edit/delete) include aria-label and title attributes.
 
 ## API Integration and Configuration
-To simulate a real data source, a JSON file was generated using Mockaroo
-and then uploaded to myjson.online, allowing the app to connect to the mock dataset via REST API (GET method).
-
+To simulate a real data source, a JSON file was generated using Mockaroo 
+and then uploaded to myjson.online, allowing the app to connect to the dataset via REST API (GET method).
 The communication logic with the external service is centralized in src/api/ to keep the rest of the app clean and easily testable.
-
 Main modules:
     src/api/apiClient.ts — Lightweight HTTP client with reusable functions (apiFetch, fetchRecord(id)), and React hooks (useFetchRecord, useFetchUsers) handling loading, errors, and parsing.
     src/utils/mapApiDataToUsers.ts — Normalizes varying JSON field names into the standard User model (e.g., first_name, job_title, etc.).
@@ -66,28 +64,21 @@ Main modules:
 ## How It Works
 Data Fetching: 
 - The app sends a GET request to the mock API endpoint (hosted on myjson.online) via apiFetch.
-
 Data Mapping: 
 - The response is normalized by mapApiDataToUsers, ensuring consistent field names and structure.
-
 Rendering: 
 - The normalized data is stored in state and rendered dynamically within the Users Table.
-
 Search, Filter & Pagination:
 - Users can search, filter by role (Admin, Editor, Viewer), and navigate paginated results (20 users per page by default).
-
+  
 ## Search and Filtering Logic
-The search and filter features are designed for clarity and performance:
-
+The search and filter features are designed for clarity and performance.
 Debounce:
 - 250 ms delay reduces redundant API calls during typing.
-
 Pure Logic: 
 - Implemented in src/utils/filterUsers.ts as filterUsers(users, { query, activeRole }), making it reusable and easily testable.
-
 Matching Fields: 
 - The query matches name, email, phone, jobTitle, companyName, username, location, and ipAddress.
-
 Role Filter: 
 - If a role (Admin/Editor/Viewer) is selected, only users of that role are shown.
 
@@ -108,35 +99,31 @@ npm test
 npm run test:watch
 
 Test Coverage:
-useDebouncedValue.test.ts — debounce hook behavior
-useUsersList.test.ts — pagination and spinner timing
-filterUsers.test.ts — search & role filtering logic
-mapApiDataToUsers.test.ts — API mapping utility
-useSearch.test.ts — tests for `useSearch` (query state, debouncedQuery behavior, role toggling and reset)
-useUserActions.test.ts — tests for `useUserActions` (edit/delete success and failure flows, optimistic updates and rollback)
-
-Tip: If you see TypeScript warnings from ts-jest, enable esModuleInterop: true in your tsconfig.json.
+- useDebouncedValue.test.ts — debounce hook behavior
+- useUsersList.test.ts — pagination and spinner timing
+- filterUsers.test.ts — search & role filtering logic
+- mapApiDataToUsers.test.ts — API mapping utility
+- useSearch.test.ts — tests for `useSearch` (query state, debouncedQuery behavior, role toggling and reset)
+- useUserActions.test.ts — tests for `useUserActions` (edit/delete success and failure flows, optimistic updates and rollback)
 
 ## Frontend Testing Checklist
 Initial Load:
 - Spinner appears briefly, then renders the user table.
-
 Search:
 - Debounce works smoothly; pagination resets on new queries or filters.
 - Search-bar parameter: name, email, phone, jobTitle, companyName, username, location, ipAddress
-
 Role Filters:
 - Admin/Editor/Viewer buttons apply filters correctly.
 - “Clear filter” (X badge) and aria-pressed behavior are preserved.
-
 Pagination:
-- Displays correct items per page (pageSize = 20 in this PR).
+- Displays correct items per page (pageSize = 20).
 - Prev/Next buttons function correctly.
 
 Component Variants:
 You can preview and test component variants in the UI, including:
 - Buttons: Primary, Secondary, Theme, Delete, Edit
-- Inputs and Toggles: check hover/focus states and consistency with design system
+- Inputs: Default, Search
+- Toggles: check hover/focus states and consistency with design system
 
 ## Bonus: Edit/Delete Demo Behavior
 As a small bonus, edit and delete actions were added to each row. These trigger optimistic updates (UI updates immediately) and then attempt to persist changes to the demo API.
