@@ -22,7 +22,6 @@ export async function apiFetch<T = any>(path: string, options: RequestInit = {})
   const res = await fetch(url, { ...options, headers })
   if (!res.ok) {
     const text = await res.text()
-    // try to parse JSON, otherwise keep text
     let payload: any = null
     try {
       payload = JSON.parse(text)
@@ -30,7 +29,6 @@ export async function apiFetch<T = any>(path: string, options: RequestInit = {})
       payload = null
     }
 
-    // capture response headers for debugging
     const hdrs: Record<string, string> = {}
     res.headers.forEach((v, k) => {
       hdrs[k] = v
@@ -40,7 +38,6 @@ export async function apiFetch<T = any>(path: string, options: RequestInit = {})
       message: (payload && payload.message) || text || res.statusText,
       status: res.status,
     }
-    // attach debug info
     ;(err as any).body = payload ?? text
     ;(err as any).headers = hdrs
     ;(err as any).url = url
@@ -50,7 +47,6 @@ export async function apiFetch<T = any>(path: string, options: RequestInit = {})
   return data as T
 }
 
-// Small hook example to fetch users
 export function useFetchUsers(enabled = true) {
   const [data, setData] = useState<any[] | null>(null)
   const [loading, setLoading] = useState(false)
