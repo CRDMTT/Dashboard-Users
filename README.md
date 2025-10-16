@@ -108,35 +108,36 @@ npm test
 npm run test:watch
 
 Test Coverage:
-useDebouncedValue.test.ts — debounce hook behavior
-useUsersList.test.ts — pagination and spinner timing
-filterUsers.test.ts — search & role filtering logic
-mapApiDataToUsers.test.ts — API mapping utility
-useSearch.test.ts — tests for `useSearch` (query state, debouncedQuery behavior, role toggling and reset)
-useUserActions.test.ts — tests for `useUserActions` (edit/delete success and failure flows, optimistic updates and rollback)
-
-Tip: If you see TypeScript warnings from ts-jest, enable esModuleInterop: true in your tsconfig.json.
+- useDebouncedValue.test.ts — debounce hook behavior
+- useUsersList.test.ts — pagination and spinner timing
+- filterUsers.test.ts — search & role filtering logic
+- mapApiDataToUsers.test.ts — API mapping utility
+- useSearch.test.ts — tests for `useSearch` (query state, debouncedQuery behavior, role toggling and reset)
+- useUserActions.test.ts — tests for `useUserActions` (edit/delete success and failure flows, optimistic updates and rollback)
 
 ## Frontend Testing Checklist
 Initial Load:
 - Spinner appears briefly, then renders the user table.
 
 Search:
-- Debounce works smoothly; pagination resets on new queries or filters.
+- Debounce works smoothly.
 - Search-bar parameter: name, email, phone, jobTitle, companyName, username, location, ipAddress
 
 Role Filters:
-- Admin/Editor/Viewer buttons apply filters correctly.
-- “Clear filter” (X badge) and aria-pressed behavior are preserved.
+- Admin/Editor/Viewer buttons apply filters correctly, other filter can be added in UserTable.tsx to see the component working correctly.
+- “Clear filter” and aria-pressed behavior are preserved.
 
 Pagination:
-- Displays correct items per page (pageSize = 20 in this PR).
-- Prev/Next buttons function correctly.
+- Displays correct items per page (pageSize = 20).
+- Prev/Next buttons function correctly (and disable status).
 
 Component Variants:
 You can preview and test component variants in the UI, including:
 - Buttons: Primary, Secondary, Theme, Delete, Edit
 - Inputs and Toggles: check hover/focus states and consistency with design system
+
+Dark Mode:
+- By clicking on the toggle inside the header you can activate the darkmode and toggle back to the lightmode
 
 ## Bonus: Edit/Delete Demo Behavior
 As a small bonus, edit and delete actions were added to each row. These trigger optimistic updates (UI updates immediately) and then attempt to persist changes to the demo API.
