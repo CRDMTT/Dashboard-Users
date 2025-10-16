@@ -110,7 +110,7 @@ Test Coverage:
 Initial Load:
 - Spinner appears briefly, then renders the user table.
 Search:
-- Debounce works smoothly; pagination resets on new queries or filters.
+- Debounce works smoothly.
 - Search-bar parameter: name, email, phone, jobTitle, companyName, username, location, ipAddress
 Role Filters:
 - Admin/Editor/Viewer buttons apply filters correctly.
@@ -124,6 +124,9 @@ You can preview and test component variants in the UI, including:
 - Buttons: Primary, Secondary, Theme, Delete, Edit
 - Inputs: Default, Search
 - Toggles: check hover/focus states and consistency with design system
+
+Dark Mode:
+- By clicking on the toggle inside the header you can activate the darkmode and toggle back to the lightmode
 
 ## Bonus: Edit/Delete Demo Behavior
 As a small bonus, edit and delete actions were added to each row. These trigger optimistic updates (UI updates immediately) and then attempt to persist changes to the demo API.
