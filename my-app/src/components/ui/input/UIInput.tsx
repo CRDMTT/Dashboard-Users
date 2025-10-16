@@ -9,7 +9,6 @@ type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 }
 
 export default function UIInput({ label, error = null, className = '', id, name, variant = 'default', ...rest }: InputProps) {
-  // prefer provided id, otherwise generate one for accessibility
   const generatedId = React.useId()
   const inputId = (id as string) || (name as string) || generatedId
 
