@@ -6,14 +6,12 @@ type UseUsersListOptions = {
   pageSize?: number
   loading?: boolean
   hasApiData?: boolean
-  // keys that when changed should reset the page (e.g., query, activeRole)
   resetKeys?: Array<string | number | null | undefined>
 }
 
 export function useUsersList({ items, pageSize = 10, loading = false, hasApiData = true, resetKeys = [] }: UseUsersListOptions) {
   const [page, setPage] = useState(1)
 
-  // Spinner management
   const [showSpinner, setShowSpinner] = useState(false)
   const spinnerStartRef = useRef<number | null>(null)
   const spinnerShouldBeVisible = loading || (!hasApiData && items.length === 0)
@@ -43,15 +41,12 @@ export function useUsersList({ items, pageSize = 10, loading = false, hasApiData
   }, [spinnerShouldBeVisible])
 
   const totalPages = Math.max(1, Math.ceil(items.length / pageSize))
-
-  // Reset page when relevant keys change
+  
   useEffect(() => { setPage(1) }, [JSON.stringify(resetKeys)])
-
   useEffect(() => { if (page > totalPages) setPage(totalPages) }, [page, totalPages])
 
   const startIndex = (page - 1) * pageSize
   const endIndex = Math.min(startIndex + pageSize, items.length)
-
   const currentItems = useMemo(() => items.slice(startIndex, endIndex), [items, startIndex, endIndex])
 
   return {
